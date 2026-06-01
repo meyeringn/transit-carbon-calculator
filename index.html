@@ -5,22 +5,31 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Transit Carbon Calculator</title>
 <link rel="stylesheet" href="style.css" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <header>
-<h1>🚌 Transit Carbon Calculator</h1>
-<p>See how much CO₂ you save by choosing transit over driving.</p>
+<div class="header-inner">
+<div class="header-badge">🌿 Climate Tool</div>
+<h1>Transit Carbon Calculator</h1>
+<p>Discover the real climate impact of your daily commute.</p>
+</div>
 </header>
 
 <main>
 <div class="card">
+<div class="input-group">
 <label for="miles">One-way commute distance (miles)</label>
 <input type="number" id="miles" placeholder="e.g. 8" min="0.1" step="0.1" />
+</div>
 
+<div class="input-group">
 <label for="days">Days per week you commute</label>
 <input type="number" id="days" placeholder="e.g. 5" min="1" max="7" />
+</div>
 
+<div class="input-group">
 <label for="mode">Your transit mode</label>
 <select id="mode">
 <option value="bus">🚌 Bus (e.g. SEPTA)</option>
@@ -29,37 +38,36 @@
 <option value="bike">🚲 Bike</option>
 <option value="walk">🚶 Walk</option>
 </select>
+</div>
 
-<button onclick="calculate()">Calculate My Impact</button>
+<button onclick="calculate()">Calculate My Impact →</button>
 </div>
 
 <div class="results" id="results" style="display:none;">
 <h2>Your Annual Impact</h2>
+
+<div class="gauge-wrap">
+<div class="gauge-label">CO₂ Reduction vs. Driving</div>
+<div class="gauge-track">
+<div class="gauge-fill" id="gaugeFill"></div>
+</div>
+<div class="gauge-pct" id="gaugePct"></div>
+</div>
+
 <div class="stat-grid">
 <div class="stat">
-<span class="number" id="co2Saved"></span>
-<span class="label">lbs of CO₂ saved vs. driving alone</span>
+<span class="number" id="co2Saved">0</span>
+<span class="label">lbs of CO₂ saved</span>
 </div>
 <div class="stat">
-<span class="number" id="milesAvoided"></span>
-<span class="label">car miles avoided per year</span>
+<span class="number" id="milesAvoided">0</span>
+<span class="label">car miles avoided</span>
 </div>
 <div class="stat">
-<span class="number" id="treesEquiv"></span>
-<span class="label">trees worth of carbon absorbed</span>
+<span class="number" id="treesEquiv">0</span>
+<span class="label">trees equivalent</span>
 </div>
 </div>
+
 <p class="context" id="contextMsg"></p>
-<p class="septa-note">📍 Default values optimized for <strong>SEPTA riders in Philadelphia</strong>.
-Data sources: EPA emission factors, APTA transit emissions research.</p>
-</div>
-</main>
-
-<footer>
-<p>Built with 🧡🖤 for Philadelphia transit riders.
-<a href="https://github.com/meyeringn/transit-carbon-calculator" target="_blank">View on GitHub</a></p>
-</footer>
-
-<script src="script.js"></script>
-</body>
-</html>
+<p class="septa-note">📍 Optimized for
