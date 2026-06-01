@@ -243,3 +243,90 @@ footer a:hover { text-decoration: underline; }
 header h1 { font-size: 1.7rem; }
 .card, .results { padding: 1.5rem; }
 }
+
+
+/* ── Results header row ── */
+.results-header {
+display: flex;
+align-items: center;
+justify-content: space-between;
+margin-bottom: 1.5rem;
+flex-wrap: wrap;
+gap: 0.8rem;
+}
+
+.results-header h2 {
+margin-bottom: 0;
+}
+
+/* ── Timeframe toggle ── */
+.toggle-group {
+display: flex;
+background: #f0f4f0;
+border-radius: 8px;
+padding: 3px;
+gap: 2px;
+}
+
+.toggle-btn {
+background: transparent;
+color: #666;
+border: none;
+padding: 0.4rem 0.9rem;
+border-radius: 6px;
+font-size: 0.85rem;
+font-weight: 600;
+font-family: inherit;
+cursor: pointer;
+transition: all 0.2s;
+transform: none;
+box-shadow: none;
+letter-spacing: 0;
+}
+
+.toggle-btn:hover {
+color: #1a6b3c;
+transform: none;
+box-shadow: none;
+}
+
+.toggle-btn.active {
+background: white;
+color: #1a6b3c;
+box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+/* ── Money banner ── */
+.money-banner {
+background: linear-gradient(135deg, #fff8e1, #fff3cd);
+border: 1px solid #ffe082;
+border-radius: 12px;
+padding: 1.2rem 1.4rem;
+margin-bottom: 1.2rem;
+}
+
+.money-inner {
+display: flex;
+align-items: center;
+justify-content: space-between;
+margin-bottom: 0.3rem;
+}
+
+.money-label {
+font-weight: 700;
+font-size: 0.95rem;
+color: #5a4000;
+}
+
+.money-amount {
+font-size: 1.8rem;
+font-weight: 800;
+color: #2e7d00;
+letter-spacing: -0.02em;
+}
+
+.money-sub {
+font-size: 0.75rem;
+color: #888;
+}
+
