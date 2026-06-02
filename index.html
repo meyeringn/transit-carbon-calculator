@@ -62,9 +62,7 @@ box-shadow: 0 4px 24px rgba(0,0,0,0.08);
 margin-bottom: 24px;
 }
 
-.input-group {
-margin-bottom: 20px;
-}
+.input-group { margin-bottom: 20px; }
 
 label {
 display: block;
@@ -97,6 +95,7 @@ grid-template-columns: 1fr 1fr;
 gap: 16px;
 }
 
+/* Button base */
 button {
 width: 100%;
 padding: 16px;
@@ -111,9 +110,44 @@ cursor: pointer;
 transition: background 0.2s, transform 0.1s;
 margin-top: 8px;
 }
-
 button:hover { background: #1b4332; }
 button:active { transform: scale(0.98); }
+
+/* Action buttons row */
+.action-row {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 12px;
+margin-top: 20px;
+}
+
+.btn-share {
+background: #0a66c2;
+margin-top: 0;
+}
+.btn-share:hover { background: #004182; }
+
+.btn-reset {
+background: white;
+color: #6b7280;
+border: 2px solid #e5e7eb;
+margin-top: 0;
+}
+.btn-reset:hover { background: #f9fafb; color: #374151; }
+
+/* Share toast */
+.toast {
+display: none;
+background: #1b4332;
+color: white;
+text-align: center;
+padding: 10px 16px;
+border-radius: 10px;
+font-size: 13px;
+font-weight: 600;
+margin-top: 12px;
+animation: fadeIn 0.3s ease;
+}
 
 .error {
 color: #dc2626;
@@ -136,7 +170,6 @@ to { opacity: 1; transform: translateY(0); }
 text-align: center;
 margin-bottom: 20px;
 }
-
 .results-header h2 {
 font-size: 22px;
 font-weight: 800;
@@ -166,13 +199,13 @@ cursor: pointer;
 transition: all 0.2s;
 margin: 0;
 }
-
 .toggle-btn.active {
 background: white;
 color: #1b4332;
 box-shadow: 0 1px 4px rgba(0,0,0,0.12);
 }
 
+/* Stats grid */
 .stats-grid {
 display: grid;
 grid-template-columns: 1fr 1fr;
@@ -204,7 +237,6 @@ color: #1b4332;
 line-height: 1;
 margin-bottom: 4px;
 }
-
 .stat-card.highlight .stat-value { color: #86efac; }
 
 .stat-label {
@@ -214,9 +246,80 @@ color: #6b7280;
 text-transform: uppercase;
 letter-spacing: 0.05em;
 }
-
 .stat-card.highlight .stat-label { color: rgba(255,255,255,0.7); }
 
+/* Comparison bar */
+.comparison-section {
+margin: 20px 0;
+padding: 20px;
+background: #f8fafc;
+border-radius: 12px;
+border: 1px solid #e2e8f0;
+}
+
+.comparison-title {
+font-size: 13px;
+font-weight: 700;
+color: #374151;
+text-transform: uppercase;
+letter-spacing: 0.06em;
+margin-bottom: 16px;
+}
+
+.bar-row {
+margin-bottom: 14px;
+}
+
+.bar-label-row {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 6px;
+}
+
+.bar-name {
+font-size: 13px;
+font-weight: 600;
+color: #374151;
+}
+
+.bar-value {
+font-size: 13px;
+font-weight: 700;
+color: #6b7280;
+}
+
+.bar-track {
+height: 10px;
+background: #e5e7eb;
+border-radius: 100px;
+overflow: hidden;
+}
+
+.bar-fill {
+height: 100%;
+border-radius: 100px;
+transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bar-fill.you { background: #2d6a4f; }
+.bar-fill.avg { background: #f59e0b; }
+.bar-fill.car { background: #ef4444; }
+
+.bar-you-label {
+font-size: 11px;
+font-weight: 700;
+color: #2d6a4f;
+margin-top: 3px;
+}
+
+.comparison-note {
+font-size: 11px;
+color: #9ca3af;
+margin-top: 12px;
+}
+
+/* Context + source */
 .context-msg {
 background: #ecfdf5;
 border-left: 4px solid #2d6a4f;
@@ -241,7 +344,6 @@ padding: 24px;
 font-size: 12px;
 color: #9ca3af;
 }
-
 footer a { color: #2d6a4f; text-decoration: none; }
 footer a:hover { text-decoration: underline; }
 </style>
@@ -257,7 +359,7 @@ footer a:hover { text-decoration: underline; }
 </header>
 
 <main>
-<div class="card">
+<div class="card" id="inputCard">
 <div class="input-group">
 <label for="miles">One-way commute distance (miles)</label>
 <input type="number" id="miles" placeholder="e.g. 8" min="0.1" step="0.1" />
@@ -328,8 +430,46 @@ footer a:hover { text-decoration: underline; }
 </div>
 </div>
 
+<!-- Comparison Bar -->
+<div class="comparison-section">
+<div class="comparison-title">📊 How you compare (annual lbs CO₂)</div>
+
+<div class="bar-row">
+<div class="bar-label-row">
+<span class="bar-name">🟢 You</span>
+<span class="bar-value" id="cmp-you-val">—</span>
+</div>
+<div class="bar-track"><div class="bar-fill you" id="cmp-you-bar" style="width:0%"></div></div>
+</div>
+
+<div class="bar-row">
+<div class="bar-label-row">
+<span class="bar-name">🟡 Avg. Philadelphia commuter</span>
+<span class="bar-value" id="cmp-avg-val">—</span>
+</div>
+<div class="bar-track"><div class="bar-fill avg" id="cmp-avg-bar" style="width:0%"></div></div>
+</div>
+
+<div class="bar-row">
+<div class="bar-label-row">
+<span class="bar-name">🔴 Solo car commuter (same distance)</span>
+<span class="bar-value" id="cmp-car-val">—</span>
+</div>
+<div class="bar-track"><div class="bar-fill car" id="cmp-car-bar" style="width:0%"></div></div>
+</div>
+
+<p class="comparison-note">Avg. Philadelphia commuter: ~3,200 lbs CO₂/year · EPA + DVRPC data</p>
+</div>
+
 <div class="context-msg" id="contextMsg"></div>
 <p class="source-note">Data: EPA GHG emission factors · APTA transit emissions research · 50 commute weeks/year</p>
+
+<!-- Action buttons -->
+<div class="action-row">
+<button class="btn-share" onclick="shareResult()">🔗 Share on LinkedIn</button>
+<button class="btn-reset" onclick="resetCalculator()">↩ Recalculate</button>
+</div>
+<div class="toast" id="shareToast">✅ Post text copied! Paste into LinkedIn.</div>
 </div>
 </main>
 
@@ -339,7 +479,6 @@ Built by <a href="https://github.com/meyeringn" target="_blank">Nico Meyering</a
 </footer>
 
 <script>
-// lbs CO₂ per passenger mile
 const emissionFactors = {
 car: 0.89,
 bus: 0.18,
@@ -349,9 +488,16 @@ bike: 0,
 walk: 0
 };
 
-const LBS_PER_TREE = 48; // lbs CO₂ absorbed per tree per year
+const modeLabels = {
+bus: 'bus', subway: 'subway/rail', commuter_rail: 'commuter rail',
+bike: 'bike', walk: 'walking'
+};
 
-let calcData = null; // stores raw annual figures for toggle
+const LBS_PER_TREE = 48;
+const AVG_PHILLY_COMMUTER_CO2 = 3200; // annual lbs, EPA + DVRPC
+
+let calcData = null;
+let currentView = 'weekly';
 
 function calculate() {
 const miles = parseFloat(document.getElementById('miles').value);
@@ -372,18 +518,29 @@ const annualMiles = miles * 2 * days * weeksPerYear;
 const carEmissions = annualMiles * emissionFactors.car;
 const transitEmissions = annualMiles * emissionFactors[mode];
 const annualCO2Saved = carEmissions - transitEmissions;
+const annualCO2You = transitEmissions; // what you actually emit
 const annualTrees = annualCO2Saved / LBS_PER_TREE;
 const annualMoney = (annualMiles / mpg) * gasCost;
 
 calcData = {
 annualCO2: annualCO2Saved,
+annualCO2You: annualCO2You,
+annualCarCO2: carEmissions,
 annualMiles: annualMiles,
 annualTrees: annualTrees,
 annualMoney: annualMoney,
-mode: mode
+mode: mode,
+miles: miles,
+days: days
 };
 
-setView('weekly', document.querySelector('.toggle-btn.active'));
+// Reset to weekly view
+document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+document.querySelector('.toggle-btn').classList.add('active');
+currentView = 'weekly';
+setView('weekly', null);
+
+updateComparisonBars();
 
 const results = document.getElementById('results');
 results.style.display = 'block';
@@ -392,10 +549,12 @@ results.scrollIntoView({ behavior: 'smooth' });
 
 function setView(period, btn) {
 if (!calcData) return;
+currentView = period;
 
-// Update active button
+if (btn) {
 document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
-if (btn) btn.classList.add('active');
+btn.classList.add('active');
+}
 
 const divisors = { weekly: 50, monthly: 12, annual: 1 };
 const d = divisors[period];
@@ -410,8 +569,63 @@ document.getElementById('milesAvoided').textContent = miles.toLocaleString();
 document.getElementById('treesEquiv').textContent = trees;
 document.getElementById('moneySaved').textContent = '$' + parseFloat(money).toLocaleString('en-US', {minimumFractionDigits: 2});
 
-// Context message (always annual scale for meaning)
 document.getElementById('contextMsg').textContent = getContextMessage(calcData.annualCO2, calcData.mode);
+}
+
+function updateComparisonBars() {
+const you = Math.round(calcData.annualCO2You);
+const avg = AVG_PHILLY_COMMUTER_CO2;
+const car = Math.round(calcData.annualCarCO2);
+
+const max = Math.max(you, avg, car, 1);
+
+document.getElementById('cmp-you-val').textContent = you.toLocaleString() + ' lbs';
+document.getElementById('cmp-avg-val').textContent = avg.toLocaleString() + ' lbs';
+document.getElementById('cmp-car-val').textContent = car.toLocaleString() + ' lbs';
+
+// Animate bars after a tiny delay so transition fires
+setTimeout(() => {
+document.getElementById('cmp-you-bar').style.width = Math.max((you / max) * 100, 2) + '%';
+document.getElementById('cmp-avg-bar').style.width = ((avg / max) * 100) + '%';
+document.getElementById('cmp-car-bar').style.width = ((car / max) * 100) + '%';
+}, 50);
+}
+
+function shareResult() {
+if (!calcData) return;
+const co2 = Math.round(calcData.annualCO2).toLocaleString();
+const money = calcData.annualMoney.toFixed(0);
+const trees = Math.round(calcData.annualTrees);
+const modeLabel = modeLabels[calcData.mode];
+
+const text = `I just calculated my transit commute's climate impact — and the numbers are real.\n\nBy commuting via ${modeLabel} instead of driving, I avoid roughly ${co2} lbs of CO₂ per year. That's the equivalent of ${trees} trees worth of carbon — and $${money} in gas savings.\n\nPhiladelphia's transit network isn't just a way to get around. It's climate infrastructure.\n\nTry it yourself 👇\nhttps://github.com/meyeringn/transit-carbon-calculator\n\n#TransitEquity #Philadelphia #ClimateAction #SEPTA`;
+
+navigator.clipboard.writeText(text).then(() => {
+const toast = document.getElementById('shareToast');
+toast.style.display = 'block';
+setTimeout(() => { toast.style.display = 'none'; }, 3500);
+}).catch(() => {
+alert('Copy this LinkedIn post:\n\n' + text);
+});
+}
+
+function resetCalculator() {
+calcData = null;
+document.getElementById('results').style.display = 'none';
+document.getElementById('miles').value = '';
+document.getElementById('days').value = '';
+document.getElementById('gasCost').value = '3.50';
+document.getElementById('mpg').value = '28';
+document.getElementById('mode').selectedIndex = 0;
+document.getElementById('errorMsg').style.display = 'none';
+document.getElementById('shareToast').style.display = 'none';
+
+// Reset bars
+['cmp-you-bar','cmp-avg-bar','cmp-car-bar'].forEach(id => {
+document.getElementById(id).style.width = '0%';
+});
+
+document.getElementById('inputCard').scrollIntoView({ behavior: 'smooth' });
 }
 
 function getContextMessage(annualCO2, mode) {
