@@ -1,11 +1,250 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Transit Carbon Calculator</title>
-<link rel="stylesheet" href="style.css" />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+font-family: 'Inter', sans-serif;
+background: #f0f4f0;
+color: #1a1a1a;
+min-height: 100vh;
+}
+
+header {
+background: linear-gradient(135deg, #1b4332, #2d6a4f);
+color: white;
+padding: 48px 24px 40px;
+text-align: center;
+}
+
+.header-badge {
+display: inline-block;
+background: rgba(255,255,255,0.15);
+border: 1px solid rgba(255,255,255,0.3);
+border-radius: 100px;
+padding: 6px 16px;
+font-size: 13px;
+font-weight: 600;
+letter-spacing: 0.05em;
+margin-bottom: 16px;
+}
+
+header h1 {
+font-size: clamp(28px, 5vw, 42px);
+font-weight: 800;
+margin-bottom: 10px;
+}
+
+header p {
+font-size: 16px;
+opacity: 0.85;
+max-width: 480px;
+margin: 0 auto;
+}
+
+main {
+max-width: 600px;
+margin: 0 auto;
+padding: 32px 16px 64px;
+}
+
+.card {
+background: white;
+border-radius: 16px;
+padding: 32px;
+box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+margin-bottom: 24px;
+}
+
+.input-group {
+margin-bottom: 20px;
+}
+
+label {
+display: block;
+font-size: 14px;
+font-weight: 600;
+color: #374151;
+margin-bottom: 8px;
+}
+
+input, select {
+width: 100%;
+padding: 12px 16px;
+border: 2px solid #e5e7eb;
+border-radius: 10px;
+font-size: 16px;
+font-family: 'Inter', sans-serif;
+transition: border-color 0.2s;
+background: #fafafa;
+}
+
+input:focus, select:focus {
+outline: none;
+border-color: #2d6a4f;
+background: white;
+}
+
+.input-row {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 16px;
+}
+
+button {
+width: 100%;
+padding: 16px;
+background: #2d6a4f;
+color: white;
+border: none;
+border-radius: 12px;
+font-size: 16px;
+font-weight: 700;
+font-family: 'Inter', sans-serif;
+cursor: pointer;
+transition: background 0.2s, transform 0.1s;
+margin-top: 8px;
+}
+
+button:hover { background: #1b4332; }
+button:active { transform: scale(0.98); }
+
+.error {
+color: #dc2626;
+font-size: 13px;
+margin-top: 8px;
+display: none;
+}
+
+#results {
+display: none;
+animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(12px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+.results-header {
+text-align: center;
+margin-bottom: 20px;
+}
+
+.results-header h2 {
+font-size: 22px;
+font-weight: 800;
+color: #1b4332;
+}
+
+/* Time toggle */
+.toggle-group {
+display: flex;
+background: #f3f4f6;
+border-radius: 10px;
+padding: 4px;
+margin: 0 auto 24px;
+width: fit-content;
+}
+
+.toggle-btn {
+width: auto;
+padding: 8px 20px;
+background: transparent;
+color: #6b7280;
+border: none;
+border-radius: 8px;
+font-size: 14px;
+font-weight: 600;
+cursor: pointer;
+transition: all 0.2s;
+margin: 0;
+}
+
+.toggle-btn.active {
+background: white;
+color: #1b4332;
+box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+}
+
+.stats-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 12px;
+margin-bottom: 16px;
+}
+
+.stat-card {
+background: #f0fdf4;
+border: 1px solid #bbf7d0;
+border-radius: 12px;
+padding: 20px 16px;
+text-align: center;
+}
+
+.stat-card.highlight {
+background: #1b4332;
+border-color: #1b4332;
+color: white;
+grid-column: 1 / -1;
+}
+
+.stat-icon { font-size: 24px; margin-bottom: 6px; }
+
+.stat-value {
+font-size: 26px;
+font-weight: 800;
+color: #1b4332;
+line-height: 1;
+margin-bottom: 4px;
+}
+
+.stat-card.highlight .stat-value { color: #86efac; }
+
+.stat-label {
+font-size: 12px;
+font-weight: 600;
+color: #6b7280;
+text-transform: uppercase;
+letter-spacing: 0.05em;
+}
+
+.stat-card.highlight .stat-label { color: rgba(255,255,255,0.7); }
+
+.context-msg {
+background: #ecfdf5;
+border-left: 4px solid #2d6a4f;
+border-radius: 0 10px 10px 0;
+padding: 14px 16px;
+font-size: 14px;
+font-weight: 500;
+color: #1b4332;
+margin-bottom: 20px;
+}
+
+.source-note {
+font-size: 11px;
+color: #9ca3af;
+text-align: center;
+margin-top: 8px;
+}
+
+footer {
+text-align: center;
+padding: 24px;
+font-size: 12px;
+color: #9ca3af;
+}
+
+footer a { color: #2d6a4f; text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+</style>
 </head>
 <body>
 
@@ -30,82 +269,167 @@
 </div>
 
 <div class="input-group">
-<label for="gasCost">Gas price per gallon (optional)</label>
-<input type="number" id="gasCost" placeholder="e.g. 3.50" min="0" step="0.01" value="3.50" />
-</div>
-
-<div class="input-group">
-<label for="mpg">Your car's MPG (optional)</label>
-<input type="number" id="mpg" placeholder="e.g. 28" min="1" step="1" value="28" />
-</div>
-
-<div class="input-group">
 <label for="mode">Your transit mode</label>
 <select id="mode">
-<option value="bus">🚌 Bus (e.g. SEPTA)</option>
-<option value="rail">🚆 Commuter Rail</option>
-<option value="subway">🚇 Subway / El</option>
+<option value="bus">🚌 Bus (e.g. SEPTA local)</option>
+<option value="subway">🚇 Subway / Rail</option>
+<option value="commuter_rail">🚆 Commuter Rail</option>
 <option value="bike">🚲 Bike</option>
 <option value="walk">🚶 Walk</option>
 </select>
 </div>
 
+<div class="input-row">
+<div class="input-group">
+<label for="gasCost">Gas price / gallon ($)</label>
+<input type="number" id="gasCost" placeholder="e.g. 3.50" min="0" step="0.01" value="3.50" />
+</div>
+<div class="input-group">
+<label for="mpg">Your car's MPG</label>
+<input type="number" id="mpg" placeholder="e.g. 28" min="1" step="1" value="28" />
+</div>
+</div>
+
+<p class="error" id="errorMsg">Please fill in commute distance and days per week.</p>
 <button onclick="calculate()">Calculate My Impact →</button>
 </div>
 
-<div class="results" id="results" style="display:none;">
-
+<div class="card" id="results">
 <div class="results-header">
-<h2>Your Impact</h2>
+<h2>Your Climate Impact 🌱</h2>
+</div>
+
 <div class="toggle-group">
-<button class="toggle-btn active" onclick="setTimeframe('annual', this)">Annual</button>
-<button class="toggle-btn" onclick="setTimeframe('monthly', this)">Monthly</button>
-<button class="toggle-btn" onclick="setTimeframe('weekly', this)">Weekly</button>
+<button class="toggle-btn active" onclick="setView('weekly', this)">Weekly</button>
+<button class="toggle-btn" onclick="setView('monthly', this)">Monthly</button>
+<button class="toggle-btn" onclick="setView('annual', this)">Annual</button>
+</div>
+
+<div class="stats-grid">
+<div class="stat-card highlight">
+<div class="stat-icon">💨</div>
+<div class="stat-value" id="co2Saved">—</div>
+<div class="stat-label">lbs CO₂ avoided</div>
+</div>
+<div class="stat-card">
+<div class="stat-icon">🚗</div>
+<div class="stat-value" id="milesAvoided">—</div>
+<div class="stat-label">car miles skipped</div>
+</div>
+<div class="stat-card">
+<div class="stat-icon">🌳</div>
+<div class="stat-value" id="treesEquiv">—</div>
+<div class="stat-label">trees' worth of CO₂</div>
+</div>
+<div class="stat-card">
+<div class="stat-icon">💵</div>
+<div class="stat-value" id="moneySaved">—</div>
+<div class="stat-label">gas money saved</div>
 </div>
 </div>
 
-<div class="gauge-wrap">
-<div class="gauge-label">CO₂ Reduction vs. Driving</div>
-<div class="gauge-track">
-<div class="gauge-fill" id="gaugeFill"></div>
-</div>
-<div class="gauge-pct" id="gaugePct"></div>
-</div>
-
-<div class="stat-grid">
-<div class="stat">
-<span class="number" id="co2Saved">0</span>
-<span class="label">lbs of CO₂ saved</span>
-</div>
-<div class="stat">
-<span class="number" id="milesAvoided">0</span>
-<span class="label">car miles avoided</span>
-</div>
-<div class="stat">
-<span class="number" id="treesEquiv">0</span>
-<span class="label">trees equivalent</span>
-</div>
-</div>
-
-<div class="money-banner">
-<div class="money-inner">
-<span class="money-label">💵 Estimated gas savings</span>
-<span class="money-amount" id="moneySaved">$0</span>
-</div>
-<p class="money-sub">Based on your MPG and gas price inputs</p>
-</div>
-
-<p class="context" id="contextMsg"></p>
-<p class="septa-note">📍 Optimized for <strong>SEPTA riders in Philadelphia</strong>.
-Sources: EPA emission factors, APTA transit emissions research.</p>
+<div class="context-msg" id="contextMsg"></div>
+<p class="source-note">Data: EPA GHG emission factors · APTA transit emissions research · 50 commute weeks/year</p>
 </div>
 </main>
 
 <footer>
-<p>Built with 🧡🖤 for Philadelphia transit riders.
-<a href="https://github.com/meyeringn/transit-carbon-calculator" target="_blank">View on GitHub</a></p>
+Built by <a href="https://github.com/meyeringn" target="_blank">Nico Meyering</a> ·
+<a href="https://github.com/meyeringn/transit-carbon-calculator" target="_blank">View on GitHub</a>
 </footer>
 
-<script src="script.js"></script>
+<script>
+// lbs CO₂ per passenger mile
+const emissionFactors = {
+car: 0.89,
+bus: 0.18,
+subway: 0.10,
+commuter_rail: 0.22,
+bike: 0,
+walk: 0
+};
+
+const LBS_PER_TREE = 48; // lbs CO₂ absorbed per tree per year
+
+let calcData = null; // stores raw annual figures for toggle
+
+function calculate() {
+const miles = parseFloat(document.getElementById('miles').value);
+const days = parseFloat(document.getElementById('days').value);
+const mode = document.getElementById('mode').value;
+const gasCost = parseFloat(document.getElementById('gasCost').value) || 3.50;
+const mpg = parseFloat(document.getElementById('mpg').value) || 28;
+const errEl = document.getElementById('errorMsg');
+
+if (!miles || !days || miles <= 0 || days < 1 || days > 7) {
+errEl.style.display = 'block';
+return;
+}
+errEl.style.display = 'none';
+
+const weeksPerYear = 50;
+const annualMiles = miles * 2 * days * weeksPerYear;
+const carEmissions = annualMiles * emissionFactors.car;
+const transitEmissions = annualMiles * emissionFactors[mode];
+const annualCO2Saved = carEmissions - transitEmissions;
+const annualTrees = annualCO2Saved / LBS_PER_TREE;
+const annualMoney = (annualMiles / mpg) * gasCost;
+
+calcData = {
+annualCO2: annualCO2Saved,
+annualMiles: annualMiles,
+annualTrees: annualTrees,
+annualMoney: annualMoney,
+mode: mode
+};
+
+setView('weekly', document.querySelector('.toggle-btn.active'));
+
+const results = document.getElementById('results');
+results.style.display = 'block';
+results.scrollIntoView({ behavior: 'smooth' });
+}
+
+function setView(period, btn) {
+if (!calcData) return;
+
+// Update active button
+document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+if (btn) btn.classList.add('active');
+
+const divisors = { weekly: 50, monthly: 12, annual: 1 };
+const d = divisors[period];
+
+const co2 = Math.round(calcData.annualCO2 / d);
+const miles = Math.round(calcData.annualMiles / d);
+const trees = (calcData.annualTrees / d).toFixed(1);
+const money = (calcData.annualMoney / d).toFixed(2);
+
+document.getElementById('co2Saved').textContent = co2.toLocaleString();
+document.getElementById('milesAvoided').textContent = miles.toLocaleString();
+document.getElementById('treesEquiv').textContent = trees;
+document.getElementById('moneySaved').textContent = '$' + parseFloat(money).toLocaleString('en-US', {minimumFractionDigits: 2});
+
+// Context message (always annual scale for meaning)
+document.getElementById('contextMsg').textContent = getContextMessage(calcData.annualCO2, calcData.mode);
+}
+
+function getContextMessage(annualCO2, mode) {
+if (mode === 'bike' || mode === 'walk') {
+return '🌱 Zero emissions — you\'re as clean as it gets. Philly thanks you.';
+}
+if (annualCO2 > 5000) {
+return '🏆 Enormous impact. You\'re saving more carbon than most Philadelphians by a wide margin. Share this.';
+}
+if (annualCO2 > 2000) {
+return '🚌 Solid. Your transit habit is doing real work — like planting a small urban grove every year.';
+}
+if (annualCO2 > 500) {
+return '✅ Every trip counts. Your commute choices are making a measurable difference for Philadelphia\'s air quality.';
+}
+return '🌿 Even small shifts add up. Every car trip you skip is a win for the city.';
+}
+</script>
+
 </body>
 </html>
