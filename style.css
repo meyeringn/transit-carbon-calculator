@@ -1,85 +1,102 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* ── Results header row ── */
-.results-header {
-display: flex;
-align-items: center;
-justify-content: space-between;
-margin-bottom: 1.5rem;
-flex-wrap: wrap;
-gap: 0.8rem;
-}
-
-.results-header h2 {
-margin-bottom: 0;
-}
-
-/* ── Timeframe toggle ── */
-.toggle-group {
-display: flex;
+body {
+font-family: 'Inter', 'Segoe UI', sans-serif;
 background: #f0f4f0;
-border-radius: 8px;
-padding: 3px;
-gap: 2px;
+color: #1a1a1a;
+min-height: 100vh;
 }
 
-.toggle-btn {
-background: transparent;
-color: #666;
-border: none;
-padding: 0.4rem 0.9rem;
-border-radius: 6px;
-font-size: 0.85rem;
+/* ── Header ── */
+header {
+background: linear-gradient(135deg, #1a6b3c 0%, #0f4a28 100%);
+color: white;
+padding: 3rem 1.5rem;
+text-align: center;
+}
+
+.header-inner { max-width: 600px; margin: 0 auto; }
+
+.header-badge {
+display: inline-block;
+background: rgba(255,255,255,0.15);
+border: 1px solid rgba(255,255,255,0.3);
+border-radius: 20px;
+padding: 0.3rem 1rem;
+font-size: 0.8rem;
 font-weight: 600;
-font-family: inherit;
-cursor: pointer;
-transition: all 0.2s;
-transform: none;
-box-shadow: none;
-letter-spacing: 0;
+letter-spacing: 0.05em;
+text-transform: uppercase;
+margin-bottom: 1rem;
 }
 
-.toggle-btn:hover {
-color: #1a6b3c;
-transform: none;
-box-shadow: none;
-}
-
-.toggle-btn.active {
-background: white;
-color: #1a6b3c;
-box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-}
-
-/* ── Money banner ── */
-.money-banner {
-background: linear-gradient(135deg, #fff8e1, #fff3cd);
-border: 1px solid #ffe082;
-border-radius: 12px;
-padding: 1.2rem 1.4rem;
-margin-bottom: 1.2rem;
-}
-
-.money-inner {
-display: flex;
-align-items: center;
-justify-content: space-between;
-margin-bottom: 0.3rem;
-}
-
-.money-label {
-font-weight: 700;
-font-size: 0.95rem;
-color: #5a4000;
-}
-
-.money-amount {
-font-size: 1.8rem;
+header h1 {
+font-size: 2.2rem;
 font-weight: 800;
-color: #2e7d00;
+margin-bottom: 0.6rem;
 letter-spacing: -0.02em;
 }
 
-.money-sub {
-font-size: 0.75rem;
-color: #888;
+header p {
+opacity: 0.85;
+font-size: 1.05rem;
 }
+
+/* ── Main layout ── */
+main {
+max-width: 640px;
+margin: 2rem auto;
+padding: 0 1rem;
+}
+
+/* ── Card ── */
+.card {
+background: white;
+border-radius: 16px;
+padding: 2rem;
+box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+display: flex;
+flex-direction: column;
+gap: 1.2rem;
+}
+
+.input-group {
+display: flex;
+flex-direction: column;
+gap: 0.4rem;
+}
+
+label {
+font-weight: 600;
+font-size: 0.9rem;
+color: #444;
+text-transform: uppercase;
+letter-spacing: 0.03em;
+}
+
+input, select {
+width: 100%;
+padding: 0.85rem 1rem;
+border: 2px solid #e8e8e8;
+border-radius: 10px;
+font-size: 1rem;
+font-family: inherit;
+background: #fafafa;
+transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus, select:focus {
+outline: none;
+border-color: #1a6b3c;
+box-shadow: 0 0 0 3px rgba(26,107,60,0.1);
+background: white;
+}
+
+button {
+background: linear-gradient(135deg, #1a6b3c, #0f4a28);
+color: white;
+border: none;
+padding: 1rem;
+border-radius: 10px;
+font-size: 1.05rem;
+font-weight: 700
