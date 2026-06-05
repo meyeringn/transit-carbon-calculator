@@ -11,55 +11,57 @@
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'Inter', sans-serif; background: #f0f4f0; color: #1a1a1a; min-height: 100vh; }
-
 header {
-background: linear-gradient(135deg, #1b4332, #2d6a4f);
-color: white; padding: 48px 24px 40px; text-align: center;
+  background: linear-gradient(135deg, #1b4332, #2d6a4f);
+  color: white; padding: 48px 24px 40px; text-align: center;
 }
 .header-badge {
-display: inline-block; background: rgba(255,255,255,0.15);
-border: 1px solid rgba(255,255,255,0.3); border-radius: 100px;
-padding: 6px 16px; font-size: 13px; font-weight: 600; letter-spacing: 0.05em; margin-bottom: 16px;
+  display: inline-block; background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3); border-radius: 100px;
+  padding: 6px 16px; font-size: 13px; font-weight: 600; letter-spacing: 0.05em; margin-bottom: 16px;
 }
 header h1 { font-size: clamp(28px, 5vw, 42px); font-weight: 800; margin-bottom: 10px; }
 header p { font-size: 16px; opacity: 0.85; max-width: 480px; margin: 0 auto; }
-
 main { max-width: 640px; margin: 0 auto; padding: 32px 16px 64px; }
-
 .card {
-background: white; border-radius: 16px; padding: 32px;
-box-shadow: 0 4px 24px rgba(0,0,0,0.08); margin-bottom: 24px;
+  background: white; border-radius: 16px; padding: 32px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08); margin-bottom: 24px;
 }
 .card-title {
-font-size: 16px; font-weight: 800; color: #1b4332;
-text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 20px;
+  font-size: 16px; font-weight: 800; color: #1b4332;
+  text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 20px;
 }
-
 .input-group { margin-bottom: 20px; }
 label { display: block; font-size: 14px; font-weight: 600; color: #374151; margin-bottom: 8px; }
-
 .gas-label-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
 .gas-label-row label { margin-bottom: 0; }
 .gas-badge { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 100px; background: #dcfce7; color: #166534; }
 .gas-badge.loading { background: #fef9c3; color: #854d0e; }
 .gas-badge.error { background: #fee2e2; color: #991b1b; }
-
 input[type=number], select {
-width: 100%; padding: 12px 16px; border: 2px solid #e5e7eb; border-radius: 10px;
-font-size: 16px; font-family: 'Inter', sans-serif; transition: border-color 0.2s; background: #fafafa;
+  width: 100%; padding: 12px 16px; border: 2px solid #e5e7eb; border-radius: 10px;
+  font-size: 16px; font-family: 'Inter', sans-serif; transition: border-color 0.2s; background: #fafafa;
 }
 input[type=number]:focus, select:focus { outline: none; border-color: #2d6a4f; background: white; }
-
 .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 
+/* ── Agency info pill ── */
+.agency-info-pill {
+  display: none; margin-top: 8px; padding: 8px 14px;
+  background: #ecfdf5; border: 1px solid #86efac; border-radius: 8px;
+  font-size: 12px; color: #1b4332; font-weight: 600;
+  animation: fadeIn 0.3s ease;
+}
+.agency-info-pill .agency-name { font-weight: 800; }
+.agency-info-pill .agency-detail { font-weight: 400; color: #52796f; margin-top: 2px; }
+
 button {
-width: 100%; padding: 16px; background: #2d6a4f; color: white; border: none;
-border-radius: 12px; font-size: 16px; font-weight: 700; font-family: 'Inter', sans-serif;
-cursor: pointer; transition: background 0.2s, transform 0.1s; margin-top: 8px;
+  width: 100%; padding: 16px; background: #2d6a4f; color: white; border: none;
+  border-radius: 12px; font-size: 16px; font-weight: 700; font-family: 'Inter', sans-serif;
+  cursor: pointer; transition: background 0.2s, transform 0.1s; margin-top: 8px;
 }
 button:hover { background: #1b4332; }
 button:active { transform: scale(0.98); }
-
 .action-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 20px; }
 .btn-share { background: #0a66c2; margin-top: 0; font-size: 13px; padding: 12px 8px; }
 .btn-share:hover { background: #004182; }
@@ -67,44 +69,51 @@ button:active { transform: scale(0.98); }
 .btn-card:hover { background: #5b21b6; }
 .btn-reset { background: white; color: #6b7280; border: 2px solid #e5e7eb; margin-top: 0; font-size: 13px; padding: 12px 8px; }
 .btn-reset:hover { background: #f9fafb; color: #374151; }
-
 .toast {
-display: none; background: #1b4332; color: white; text-align: center;
-padding: 10px 16px; border-radius: 10px; font-size: 13px; font-weight: 600;
-margin-top: 12px; animation: fadeIn 0.3s ease;
+  display: none; background: #1b4332; color: white; text-align: center;
+  padding: 10px 16px; border-radius: 10px; font-size: 13px; font-weight: 600;
+  margin-top: 12px; animation: fadeIn 0.3s ease;
 }
 .form-error { color: #dc2626; font-size: 13px; margin-top: 8px; display: none; }
-
 #results { display: none; animation: fadeIn 0.4s ease; }
-
 @keyframes fadeIn {
-from { opacity: 0; transform: translateY(12px); }
-to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 @keyframes popIn {
-0% { transform: scale(0.85); opacity: 0; }
-70% { transform: scale(1.04); }
-100% { transform: scale(1); opacity: 1; }
+  0% { transform: scale(0.85); opacity: 0; }
+  70% { transform: scale(1.04); }
+  100% { transform: scale(1); opacity: 1; }
 }
-
 .results-header { text-align: center; margin-bottom: 20px; }
 .results-header h2 { font-size: 22px; font-weight: 800; color: #1b4332; }
+/* Agency banner in results */
+.agency-result-banner {
+  background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+  border: 1px solid #86efac; border-radius: 12px;
+  padding: 12px 16px; margin-bottom: 16px;
+  display: flex; align-items: center; gap: 10px;
+  font-size: 13px; color: #1b4332; font-weight: 600;
+}
+.agency-result-banner .ab-icon { font-size: 20px; flex-shrink: 0; }
+.agency-result-banner .ab-text { line-height: 1.4; }
+.agency-result-banner .ab-name { font-weight: 800; font-size: 14px; }
+.agency-result-banner .ab-note { font-weight: 400; color: #52796f; font-size: 12px; }
 
 .toggle-group {
-display: flex; background: #f3f4f6; border-radius: 10px;
-padding: 4px; margin: 0 auto 24px; width: fit-content;
+  display: flex; background: #f3f4f6; border-radius: 10px;
+  padding: 4px; margin: 0 auto 24px; width: fit-content;
 }
 .toggle-btn {
-width: auto; padding: 8px 20px; background: transparent; color: #6b7280;
-border: none; border-radius: 8px; font-size: 14px; font-weight: 600;
-cursor: pointer; transition: all 0.2s; margin: 0;
+  width: auto; padding: 8px 20px; background: transparent; color: #6b7280;
+  border: none; border-radius: 8px; font-size: 14px; font-weight: 600;
+  cursor: pointer; transition: all 0.2s; margin: 0;
 }
 .toggle-btn.active { background: white; color: #1b4332; box-shadow: 0 1px 4px rgba(0,0,0,0.12); }
-
 .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
 .stat-card {
-background: #f0fdf4; border: 1px solid #bbf7d0;
-border-radius: 12px; padding: 20px 16px; text-align: center;
+  background: #f0fdf4; border: 1px solid #bbf7d0;
+  border-radius: 12px; padding: 20px 16px; text-align: center;
 }
 .stat-card.highlight { background: #1b4332; border-color: #1b4332; color: white; grid-column: 1 / -1; }
 .stat-icon { font-size: 24px; margin-bottom: 6px; }
@@ -112,22 +121,18 @@ border-radius: 12px; padding: 20px 16px; text-align: center;
 .stat-card.highlight .stat-value { color: #86efac; }
 .stat-label { font-size: 12px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; }
 .stat-card.highlight .stat-label { color: rgba(255,255,255,0.7); }
-
-/* Fun fact */
 .fun-fact {
-background: linear-gradient(135deg, #fefce8, #fef9c3);
-border: 1px solid #fde68a; border-radius: 12px; padding: 16px 18px;
-margin-bottom: 16px; display: flex; align-items: flex-start; gap: 12px;
-animation: fadeIn 0.5s ease;
+  background: linear-gradient(135deg, #fefce8, #fef9c3);
+  border: 1px solid #fde68a; border-radius: 12px; padding: 16px 18px;
+  margin-bottom: 16px; display: flex; align-items: flex-start; gap: 12px;
+  animation: fadeIn 0.5s ease;
 }
 .fun-fact-icon { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
 .fun-fact-text { font-size: 14px; font-weight: 500; color: #78350f; line-height: 1.5; }
 .fun-fact-text strong { font-weight: 800; }
-
-/* Comparison bars */
 .comparison-section {
-margin: 20px 0; padding: 20px;
-background: #f8fafc; border-radius: 12px; border: 1px solid #e2e8f0;
+  margin: 20px 0; padding: 20px;
+  background: #f8fafc; border-radius: 12px; border: 1px solid #e2e8f0;
 }
 .comparison-title { font-size: 13px; font-weight: 700; color: #374151; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 16px; }
 .bar-row { margin-bottom: 14px; }
@@ -140,102 +145,92 @@ background: #f8fafc; border-radius: 12px; border: 1px solid #e2e8f0;
 .bar-fill.avg { background: #f59e0b; }
 .bar-fill.car { background: #ef4444; }
 .comparison-note { font-size: 11px; color: #9ca3af; margin-top: 12px; }
-
 .context-msg {
-background: #ecfdf5; border-left: 4px solid #2d6a4f;
-border-radius: 0 10px 10px 0; padding: 14px 16px;
-font-size: 14px; font-weight: 500; color: #1b4332; margin-bottom: 20px;
+  background: #ecfdf5; border-left: 4px solid #2d6a4f;
+  border-radius: 0 10px 10px 0; padding: 14px 16px;
+  font-size: 14px; font-weight: 500; color: #1b4332; margin-bottom: 20px;
 }
 .source-note { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 8px; }
 
 /* ── Lifetime Projector ── */
 .lifetime-section { margin-top: 8px; }
-
 .slider-row { display: flex; align-items: center; gap: 16px; margin: 16px 0; }
 .slider-label { font-size: 13px; font-weight: 600; color: #6b7280; white-space: nowrap; }
 .slider-label span { color: #1b4332; font-weight: 800; font-size: 16px; }
-
 input[type=range] {
-flex: 1; -webkit-appearance: none; appearance: none;
-height: 6px; border-radius: 100px;
-background: linear-gradient(to right, #2d6a4f 0%, #2d6a4f var(--pct, 25%), #e5e7eb var(--pct, 25%), #e5e7eb 100%);
-outline: none; cursor: pointer; border: none; padding: 0;
+  flex: 1; -webkit-appearance: none; appearance: none;
+  height: 6px; border-radius: 100px;
+  background: linear-gradient(to right, #2d6a4f 0%, #2d6a4f var(--pct, 25%), #e5e7eb var(--pct, 25%), #e5e7eb 100%);
+  outline: none; cursor: pointer; border: none; padding: 0;
 }
 input[type=range]::-webkit-slider-thumb {
--webkit-appearance: none; width: 20px; height: 20px;
-border-radius: 50%; background: #1b4332;
-box-shadow: 0 2px 6px rgba(0,0,0,0.2); cursor: pointer;
+  -webkit-appearance: none; width: 20px; height: 20px;
+  border-radius: 50%; background: #1b4332;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2); cursor: pointer;
 }
 input[type=range]::-moz-range-thumb {
-width: 20px; height: 20px; border-radius: 50%; background: #1b4332;
-box-shadow: 0 2px 6px rgba(0,0,0,0.2); cursor: pointer; border: none;
+  width: 20px; height: 20px; border-radius: 50%; background: #1b4332;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2); cursor: pointer; border: none;
 }
-
 .lifetime-grid {
-display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 4px;
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 4px;
 }
 .lt-card {
-background: #f0fdf4; border: 1px solid #bbf7d0;
-border-radius: 12px; padding: 18px 12px; text-align: center;
-animation: popIn 0.35s ease;
+  background: #f0fdf4; border: 1px solid #bbf7d0;
+  border-radius: 12px; padding: 18px 12px; text-align: center;
+  animation: popIn 0.35s ease;
 }
 .lt-card.big {
-grid-column: 1 / -1; background: #1b4332; border-color: #1b4332; color: white;
+  grid-column: 1 / -1; background: #1b4332; border-color: #1b4332; color: white;
 }
 .lt-icon { font-size: 22px; margin-bottom: 6px; }
 .lt-value { font-size: 22px; font-weight: 800; color: #1b4332; line-height: 1; margin-bottom: 4px; }
 .lt-card.big .lt-value { color: #86efac; font-size: 28px; }
 .lt-label { font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; }
 .lt-card.big .lt-label { color: rgba(255,255,255,0.7); }
-
 .lt-milestone {
-margin-top: 14px; padding: 12px 16px;
-background: linear-gradient(135deg, #fefce8, #fef9c3);
-border: 1px solid #fde68a; border-radius: 10px;
-font-size: 13px; font-weight: 500; color: #78350f; text-align: center;
+  margin-top: 14px; padding: 12px 16px;
+  background: linear-gradient(135deg, #fefce8, #fef9c3);
+  border: 1px solid #fde68a; border-radius: 10px;
+  font-size: 13px; font-weight: 500; color: #78350f; text-align: center;
 }
 .lt-milestone strong { font-weight: 800; }
 
 /* ── Carbon Map ── */
 .map-section { margin-top: 8px; }
 .map-intro { font-size: 13px; color: #6b7280; margin-bottom: 14px; line-height: 1.5; }
-
 #carbonMap { width: 100%; height: 380px; border-radius: 12px; overflow: hidden; border: 1px solid #e5e7eb; }
-
 .map-legend {
-display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
-margin-top: 12px; font-size: 12px; font-weight: 600; color: #374151;
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  margin-top: 12px; font-size: 12px; font-weight: 600; color: #374151;
 }
 .legend-item { display: flex; align-items: center; gap: 6px; }
 .legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
-
 .map-pin-note {
-margin-top: 10px; padding: 10px 14px;
-background: #ecfdf5; border-radius: 10px; border: 1px solid #bbf7d0;
-font-size: 12px; color: #1b4332; font-weight: 500;
+  margin-top: 10px; padding: 10px 14px;
+  background: #ecfdf5; border-radius: 10px; border: 1px solid #bbf7d0;
+  font-size: 12px; color: #1b4332; font-weight: 500;
 }
 #mapPinNote { display: none; }
-
 footer { text-align: center; padding: 24px; font-size: 12px; color: #9ca3af; }
 footer a { color: #2d6a4f; text-decoration: none; }
 footer a:hover { text-decoration: underline; }
-
 #confettiCanvas {
-position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-pointer-events: none; z-index: 9999;
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none; z-index: 9999;
 }
 
-/* Hidden share card */
+/* ── Share Card (hidden, for download) ── */
 #shareCard {
-position: fixed; left: -9999px; top: 0; width: 1080px; height: 1080px;
-background: linear-gradient(145deg, #0d2818 0%, #1b4332 50%, #2d6a4f 100%);
-display: flex; flex-direction: column; align-items: center; justify-content: center;
-padding: 80px; font-family: 'Inter', sans-serif; color: white;
+  position: fixed; left: -9999px; top: 0; width: 1080px; height: 1080px;
+  background: linear-gradient(145deg, #0d2818 0%, #1b4332 50%, #2d6a4f 100%);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 80px; font-family: 'Inter', sans-serif; color: white;
 }
 .sc-badge {
-background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25);
-border-radius: 100px; padding: 8px 24px; font-size: 18px; font-weight: 700;
-letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 32px;
+  background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 100px; padding: 8px 24px; font-size: 18px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 32px;
 }
 .sc-headline { font-size: 58px; font-weight: 800; text-align: center; line-height: 1.1; margin-bottom: 12px; }
 .sc-sub { font-size: 22px; color: rgba(255,255,255,0.65); text-align: center; margin-bottom: 56px; }
@@ -249,236 +244,283 @@ letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 32px;
 .sc-footer-left { font-size: 18px; color: rgba(255,255,255,0.5); }
 .sc-footer-left strong { color: white; }
 .sc-footer-right { font-size: 18px; font-weight: 700; color: #86efac; }
+/* Agency line on share card */
+.sc-agency {
+  font-size: 16px; font-weight: 700; color: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 100px; padding: 6px 20px; margin-bottom: 28px; margin-top: -20px;
+}
 </style>
 </head>
 <body>
-
 <canvas id="confettiCanvas"></canvas>
 
 <header>
-<div class="header-inner">
-<div class="header-badge">🌿 Climate Tool</div>
-<h1>Transit Carbon Calculator</h1>
-<p>Discover the real climate impact of your daily commute.</p>
-</div>
+  <div class="header-inner">
+    <div class="header-badge">🌿 Climate Tool</div>
+    <h1>Transit Carbon Calculator</h1>
+    <p>Discover the real climate impact of your daily commute.</p>
+  </div>
 </header>
 
 <main>
-<!-- INPUT -->
-<div class="card" id="inputCard">
-<div class="input-group">
-<label for="miles">One-way commute distance (miles)</label>
-<input type="number" id="miles" placeholder="e.g. 8" min="0.1" step="0.1" />
-</div>
-<div class="input-group">
-<label for="days">Days per week you commute</label>
-<input type="number" id="days" placeholder="e.g. 5" min="1" max="7" />
-</div>
-<div class="input-group">
-<label for="mode">Your transit mode</label>
-<select id="mode">
-<option value="bus">🚌 Bus (e.g. SEPTA local)</option>
-<option value="subway">🚇 Subway / Rail</option>
-<option value="commuter_rail">🚆 Commuter Rail</option>
-<option value="bike">🚲 Bike</option>
-<option value="walk">🚶 Walk</option>
-</select>
-</div>
-<div class="input-row">
-<div class="input-group">
-<div class="gas-label-row">
-<label for="gasCost">Gas price / gallon ($)</label>
-<span class="gas-badge loading" id="gasBadge">Loading…</span>
-</div>
-<input type="number" id="gasCost" placeholder="e.g. 3.50" min="0" step="0.01" value="3.50" />
-</div>
-<div class="input-group">
-<label for="mpg">Your car's MPG</label>
-<input type="number" id="mpg" placeholder="e.g. 28" min="1" step="1" value="28" />
-</div>
-</div>
-<div class="input-group">
-<label for="neighborhood">Your Philadelphia neighborhood (optional — for map pin)</label>
-<select id="neighborhood">
-<option value="">— Select your neighborhood —</option>
-<option value="center_city">Center City</option>
-<option value="west_philly">West Philadelphia</option>
-<option value="north_philly">North Philadelphia</option>
-<option value="south_philly">South Philadelphia</option>
-<option value="northeast">Northeast Philadelphia</option>
-<option value="northwest">Northwest Philadelphia (Mt. Airy / Chestnut Hill)</option>
-<option value="kensington">Kensington / Fishtown</option>
-<option value="germantown">Germantown / Olney</option>
-<option value="manayunk">Manayunk / Roxborough</option>
-<option value="outside">Outside Philadelphia</option>
-</select>
-</div>
-<p class="form-error" id="errorMsg">Please fill in commute distance and days per week.</p>
-<button onclick="calculate()">Calculate My Impact →</button>
-</div>
+  <!-- INPUT -->
+  <div class="card" id="inputCard">
 
-<!-- RESULTS -->
-<div class="card" id="results">
-<div class="results-header">
-<h2>Your Climate Impact 🌱</h2>
-</div>
+    <!-- ── NEW: PA Transit Agency Selector ── -->
+    <div class="input-group">
+      <label for="agency">Your transit agency (Pennsylvania)</label>
+      <select id="agency" onchange="onAgencyChange()">
+        <option value="">— Select your transit agency —</option>
+        <optgroup label="Southeast PA">
+          <option value="septa">SEPTA — Southeastern PA Transportation Authority</option>
+          <option value="patco">PATCO — Port Authority Transit Corp (NJ/Philly)</option>
+        </optgroup>
+        <optgroup label="Southwest PA">
+          <option value="paac">Port Authority of Allegheny County (Pittsburgh)</option>
+        </optgroup>
+        <optgroup label="Central PA">
+          <option value="cata">CATA — Centre Area Transportation Authority (State College)</option>
+          <option value="rabbittransit">rabbittransit (York / Adams counties)</option>
+          <option value="rrta">RRTA — Red Rose Transit Authority (Lancaster)</option>
+          <option value="cpt">Capital Area Transit (Harrisburg)</option>
+        </optgroup>
+        <optgroup label="Northeast PA">
+          <option value="colts">COLTS — County of Lackawanna Transit System (Scranton)</option>
+          <option value="lanta">LANTA — Lehigh and Northampton Transportation Authority (Allentown)</option>
+          <option value="barta">BARTA — Berks Area Regional Transportation Authority (Reading)</option>
+        </optgroup>
+        <optgroup label="Northwest PA">
+          <option value="emta">EMTA — Erie Metropolitan Transit Authority</option>
+        </optgroup>
+        <optgroup label="Other">
+          <option value="other_pa">Other PA transit system</option>
+          <option value="out_of_state">Out-of-state (using national averages)</option>
+        </optgroup>
+      </select>
+      <div class="agency-info-pill" id="agencyInfoPill">
+        <div class="agency-name" id="agencyPillName"></div>
+        <div class="agency-detail" id="agencyPillDetail"></div>
+      </div>
+    </div>
 
-<div class="toggle-group">
-<button class="toggle-btn active" onclick="setView('weekly', this)">Weekly</button>
-<button class="toggle-btn" onclick="setView('monthly', this)">Monthly</button>
-<button class="toggle-btn" onclick="setView('annual', this)">Annual</button>
-</div>
+    <div class="input-group">
+      <label for="miles">One-way commute distance (miles)</label>
+      <input type="number" id="miles" placeholder="e.g. 8" min="0.1" step="0.1" />
+    </div>
+    <div class="input-group">
+      <label for="days">Days per week you commute</label>
+      <input type="number" id="days" placeholder="e.g. 5" min="1" max="7" />
+    </div>
+    <div class="input-group">
+      <label for="mode">Your transit mode</label>
+      <select id="mode">
+        <option value="bus">🚌 Bus</option>
+        <option value="subway">🚇 Subway / Rail</option>
+        <option value="commuter_rail">🚆 Commuter Rail</option>
+        <option value="bike">🚲 Bike</option>
+        <option value="walk">🚶 Walk</option>
+      </select>
+    </div>
+    <div class="input-row">
+      <div class="input-group">
+        <div class="gas-label-row">
+          <label for="gasCost">Gas price / gallon ($)</label>
+          <span class="gas-badge loading" id="gasBadge">Loading…</span>
+        </div>
+        <input type="number" id="gasCost" placeholder="e.g. 3.50" min="0" step="0.01" value="3.50" />
+      </div>
+      <div class="input-group">
+        <label for="mpg">Your car's MPG</label>
+        <input type="number" id="mpg" placeholder="e.g. 28" min="1" step="1" value="28" />
+      </div>
+    </div>
+    <div class="input-group">
+      <label for="neighborhood">Your Philadelphia neighborhood (optional — for map pin)</label>
+      <select id="neighborhood">
+        <option value="">— Select your neighborhood —</option>
+        <option value="center_city">Center City</option>
+        <option value="west_philly">West Philadelphia</option>
+        <option value="north_philly">North Philadelphia</option>
+        <option value="south_philly">South Philadelphia</option>
+        <option value="northeast">Northeast Philadelphia</option>
+        <option value="northwest">Northwest Philadelphia (Mt. Airy / Chestnut Hill)</option>
+        <option value="kensington">Kensington / Fishtown</option>
+        <option value="germantown">Germantown / Olney</option>
+        <option value="manayunk">Manayunk / Roxborough</option>
+        <option value="outside">Outside Philadelphia</option>
+      </select>
+    </div>
+    <p class="form-error" id="errorMsg">Please fill in commute distance and days per week.</p>
+    <button onclick="calculate()">Calculate My Impact →</button>
+  </div>
 
-<div class="stats-grid">
-<div class="stat-card highlight">
-<div class="stat-icon">💨</div>
-<div class="stat-value" id="co2Saved">—</div>
-<div class="stat-label">lbs CO₂ avoided</div>
-</div>
-<div class="stat-card">
-<div class="stat-icon">🚗</div>
-<div class="stat-value" id="milesAvoided">—</div>
-<div class="stat-label">car miles skipped</div>
-</div>
-<div class="stat-card">
-<div class="stat-icon">🌳</div>
-<div class="stat-value" id="treesEquiv">—</div>
-<div class="stat-label">trees' worth of CO₂</div>
-</div>
-<div class="stat-card">
-<div class="stat-icon">💵</div>
-<div class="stat-value" id="moneySaved">—</div>
-<div class="stat-label">gas money saved</div>
-</div>
-</div>
+  <!-- RESULTS -->
+  <div class="card" id="results">
+    <div class="results-header">
+      <h2>Your Climate Impact 🌱</h2>
+    </div>
 
-<div class="fun-fact" id="funFact" style="display:none">
-<div class="fun-fact-icon" id="funFactIcon">💡</div>
-<div class="fun-fact-text" id="funFactText"></div>
-</div>
+    <!-- Agency banner shows in results -->
+    <div class="agency-result-banner" id="agencyResultBanner" style="display:none">
+      <div class="ab-icon" id="agencyBannerIcon">🚌</div>
+      <div class="ab-text">
+        <div class="ab-name" id="agencyBannerName"></div>
+        <div class="ab-note" id="agencyBannerNote"></div>
+      </div>
+    </div>
 
-<div class="comparison-section">
-<div class="comparison-title">📊 How you compare (annual lbs CO₂)</div>
-<div class="bar-row">
-<div class="bar-label-row">
-<span class="bar-name">🟢 You</span>
-<span class="bar-value" id="cmp-you-val">—</span>
-</div>
-<div class="bar-track"><div class="bar-fill you" id="cmp-you-bar" style="width:0%"></div></div>
-</div>
-<div class="bar-row">
-<div class="bar-label-row">
-<span class="bar-name">🟡 Avg. Philadelphia commuter</span>
-<span class="bar-value" id="cmp-avg-val">—</span>
-</div>
-<div class="bar-track"><div class="bar-fill avg" id="cmp-avg-bar" style="width:0%"></div></div>
-</div>
-<div class="bar-row">
-<div class="bar-label-row">
-<span class="bar-name">🔴 Solo car (same distance)</span>
-<span class="bar-value" id="cmp-car-val">—</span>
-</div>
-<div class="bar-track"><div class="bar-fill car" id="cmp-car-bar" style="width:0%"></div></div>
-</div>
-<p class="comparison-note">Avg. Philadelphia commuter: ~3,200 lbs CO₂/year · EPA + DVRPC data</p>
-</div>
+    <div class="toggle-group">
+      <button class="toggle-btn active" onclick="setView('weekly', this)">Weekly</button>
+      <button class="toggle-btn" onclick="setView('monthly', this)">Monthly</button>
+      <button class="toggle-btn" onclick="setView('annual', this)">Annual</button>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card highlight">
+        <div class="stat-icon">💨</div>
+        <div class="stat-value" id="co2Saved">—</div>
+        <div class="stat-label">lbs CO₂ avoided</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🚗</div>
+        <div class="stat-value" id="milesAvoided">—</div>
+        <div class="stat-label">car miles skipped</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🌳</div>
+        <div class="stat-value" id="treesEquiv">—</div>
+        <div class="stat-label">trees' worth of CO₂</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">💵</div>
+        <div class="stat-value" id="moneySaved">—</div>
+        <div class="stat-label">gas money saved</div>
+      </div>
+    </div>
+    <div class="fun-fact" id="funFact" style="display:none">
+      <div class="fun-fact-icon" id="funFactIcon">💡</div>
+      <div class="fun-fact-text" id="funFactText"></div>
+    </div>
+    <div class="comparison-section">
+      <div class="comparison-title">📊 How you compare (annual lbs CO₂)</div>
+      <div class="bar-row">
+        <div class="bar-label-row">
+          <span class="bar-name">🟢 You</span>
+          <span class="bar-value" id="cmp-you-val">—</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill you" id="cmp-you-bar" style="width:0%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label-row">
+          <span class="bar-name">🟡 Avg. PA commuter</span>
+          <span class="bar-value" id="cmp-avg-val">—</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill avg" id="cmp-avg-bar" style="width:0%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label-row">
+          <span class="bar-name">🔴 Solo car (same distance)</span>
+          <span class="bar-value" id="cmp-car-val">—</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill car" id="cmp-car-bar" style="width:0%"></div></div>
+      </div>
+      <p class="comparison-note" id="comparisonNote">Avg. PA commuter: ~3,400 lbs CO₂/year · EPA + PennDOT data</p>
+    </div>
+    <div class="context-msg" id="contextMsg"></div>
+    <p class="source-note">Data: EPA GHG emission factors · APTA transit emissions research · EIA gas prices · 50 commute weeks/year</p>
+    <div class="action-row">
+      <button class="btn-share" onclick="shareResult()">🔗 LinkedIn</button>
+      <button class="btn-card" onclick="downloadCard()">📥 Save Card</button>
+      <button class="btn-reset" onclick="resetCalculator()">↩ Reset</button>
+    </div>
+    <div class="toast" id="shareToast"></div>
+  </div>
 
-<div class="context-msg" id="contextMsg"></div>
-<p class="source-note">Data: EPA GHG emission factors · APTA transit emissions research · EIA gas prices · 50 commute weeks/year</p>
+  <!-- LIFETIME PROJECTOR -->
+  <div class="card" id="lifetimeCard" style="display:none">
+    <div class="card-title">⏳ Lifetime Projector</div>
+    <p style="font-size:13px;color:#6b7280;margin-bottom:4px;">Keep riding. Watch the numbers grow.</p>
+    <div class="slider-row">
+      <span class="slider-label">Over <span id="yearDisplay">10</span> years</span>
+      <input type="range" id="yearSlider" min="1" max="40" value="10" oninput="updateLifetime(this.value)" />
+    </div>
+    <div class="lifetime-grid" id="lifetimeGrid">
+      <div class="lt-card big">
+        <div class="lt-icon">💨</div>
+        <div class="lt-value" id="lt-co2">—</div>
+        <div class="lt-label">total lbs CO₂ avoided</div>
+      </div>
+      <div class="lt-card">
+        <div class="lt-icon">🌳</div>
+        <div class="lt-value" id="lt-trees">—</div>
+        <div class="lt-label">trees' worth</div>
+      </div>
+      <div class="lt-card">
+        <div class="lt-icon">💵</div>
+        <div class="lt-value" id="lt-money">—</div>
+        <div class="lt-label">gas saved</div>
+      </div>
+      <div class="lt-card">
+        <div class="lt-icon">🚗</div>
+        <div class="lt-value" id="lt-miles">—</div>
+        <div class="lt-label">car miles skipped</div>
+      </div>
+    </div>
+    <div class="lt-milestone" id="ltMilestone"></div>
+  </div>
 
-<div class="action-row">
-<button class="btn-share" onclick="shareResult()">🔗 LinkedIn</button>
-<button class="btn-card" onclick="downloadCard()">📥 Save Card</button>
-<button class="btn-reset" onclick="resetCalculator()">↩ Reset</button>
-</div>
-<div class="toast" id="shareToast"></div>
-</div>
-
-<!-- LIFETIME PROJECTOR -->
-<div class="card" id="lifetimeCard" style="display:none">
-<div class="card-title">⏳ Lifetime Projector</div>
-<p style="font-size:13px;color:#6b7280;margin-bottom:4px;">Keep riding. Watch the numbers grow.</p>
-
-<div class="slider-row">
-<span class="slider-label">Over <span id="yearDisplay">10</span> years</span>
-<input type="range" id="yearSlider" min="1" max="40" value="10" oninput="updateLifetime(this.value)" />
-</div>
-
-<div class="lifetime-grid" id="lifetimeGrid">
-<div class="lt-card big">
-<div class="lt-icon">💨</div>
-<div class="lt-value" id="lt-co2">—</div>
-<div class="lt-label">total lbs CO₂ avoided</div>
-</div>
-<div class="lt-card">
-<div class="lt-icon">🌳</div>
-<div class="lt-value" id="lt-trees">—</div>
-<div class="lt-label">trees' worth</div>
-</div>
-<div class="lt-card">
-<div class="lt-icon">💵</div>
-<div class="lt-value" id="lt-money">—</div>
-<div class="lt-label">gas saved</div>
-</div>
-<div class="lt-card">
-<div class="lt-icon">🚗</div>
-<div class="lt-value" id="lt-miles">—</div>
-<div class="lt-label">car miles skipped</div>
-</div>
-</div>
-<div class="lt-milestone" id="ltMilestone"></div>
-</div>
-
-<!-- CARBON MAP -->
-<div class="card" id="mapCard" style="display:none">
-<div class="card-title">🗺️ Philadelphia Carbon Map</div>
-<p class="map-intro">Transit ridership varies across Philadelphia neighborhoods. Darker green = more CO₂ avoided per commuter relative to driving. Your pin shows your neighborhood's estimated impact.</p>
-<div id="carbonMap"></div>
-<div class="map-legend">
-<div class="legend-item"><div class="legend-dot" style="background:#1b4332"></div> Highest savings</div>
-<div class="legend-item"><div class="legend-dot" style="background:#52b788"></div> High savings</div>
-<div class="legend-item"><div class="legend-dot" style="background:#95d5b2"></div> Moderate savings</div>
-<div class="legend-item"><div class="legend-dot" style="background:#d8f3dc"></div> Lower savings</div>
-<div class="legend-item"><div class="legend-dot" style="background:#e63946; border-radius:0"></div> ★ Your neighborhood</div>
-</div>
-<div class="map-pin-note" id="mapPinNote">
-📍 <span id="mapPinText"></span>
-</div>
-</div>
+  <!-- CARBON MAP -->
+  <div class="card" id="mapCard" style="display:none">
+    <div class="card-title">🗺️ Philadelphia Carbon Map</div>
+    <p class="map-intro">Transit ridership varies across Philadelphia neighborhoods. Darker green = more CO₂ avoided per commuter relative to driving. Your pin shows your neighborhood's estimated impact.</p>
+    <div id="carbonMap"></div>
+    <div class="map-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#1b4332"></div> Highest savings</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#52b788"></div> High savings</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#95d5b2"></div> Moderate savings</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#d8f3dc"></div> Lower savings</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#e63946; border-radius:0"></div> ★ Your neighborhood</div>
+    </div>
+    <div class="map-pin-note" id="mapPinNote">
+      📍 <span id="mapPinText"></span>
+    </div>
+  </div>
 </main>
 
 <footer>
-Built by <a href="https://github.com/meyeringn" target="_blank">Nico Meyering</a> ·
-<a href="https://github.com/meyeringn/transit-carbon-calculator" target="_blank">View on GitHub</a>
+  Built by <a href="https://github.com/meyeringn" target="_blank">Nico Meyering</a> ·
+  <a href="https://github.com/meyeringn/transit-carbon-calculator" target="_blank">View on GitHub</a>
+  · A <a href="https://transit4allpa.org" target="_blank">Transit 4 All PA</a> tool
 </footer>
 
-<!-- Hidden share card -->
+<!-- Hidden share card (downloaded as image) -->
 <div id="shareCard">
-<div class="sc-badge">🌿 Transit Carbon Calculator</div>
-<div class="sc-headline">I save <span id="sc-co2">—</span> lbs of CO₂ a year</div>
-<div class="sc-sub" id="sc-sub">by commuting via transit instead of driving</div>
-<div class="sc-stats">
-<div class="sc-stat">
-<div class="sc-stat-icon">🌳</div>
-<div class="sc-stat-val" id="sc-trees">—</div>
-<div class="sc-stat-label">Trees of CO₂</div>
-</div>
-<div class="sc-stat">
-<div class="sc-stat-icon">🚗</div>
-<div class="sc-stat-val" id="sc-miles">—</div>
-<div class="sc-stat-label">Car miles skipped</div>
-</div>
-<div class="sc-stat">
-<div class="sc-stat-icon">💵</div>
-<div class="sc-stat-val" id="sc-money">—</div>
-<div class="sc-stat-label">Gas saved</div>
-</div>
-</div>
-<div class="sc-divider"></div>
-<div class="sc-footer">
-<div class="sc-footer-left">Calculated with <strong>EPA + APTA data</strong> · Philadelphia, PA</div>
-<div class="sc-footer-right">github.com/meyeringn</div>
-</div>
+  <div class="sc-badge">🌿 Transit Carbon Calculator</div>
+  <div class="sc-headline">I save <span id="sc-co2">—</span> lbs of CO₂ a year</div>
+  <div class="sc-sub" id="sc-sub">by commuting via transit instead of driving</div>
+  <div class="sc-agency" id="sc-agency" style="display:none"></div>
+  <div class="sc-stats">
+    <div class="sc-stat">
+      <div class="sc-stat-icon">🌳</div>
+      <div class="sc-stat-val" id="sc-trees">—</div>
+      <div class="sc-stat-label">Trees of CO₂</div>
+    </div>
+    <div class="sc-stat">
+      <div class="sc-stat-icon">🚗</div>
+      <div class="sc-stat-val" id="sc-miles">—</div>
+      <div class="sc-stat-label">Car miles skipped</div>
+    </div>
+    <div class="sc-stat">
+      <div class="sc-stat-icon">💵</div>
+      <div class="sc-stat-val" id="sc-money">—</div>
+      <div class="sc-stat-label">Gas saved</div>
+    </div>
+  </div>
+  <div class="sc-divider"></div>
+  <div class="sc-footer">
+    <div class="sc-footer-left">Calculated with <strong>EPA + APTA data</strong> · Pennsylvania</div>
+    <div class="sc-footer-right">transit4allpa.org</div>
+  </div>
 </div>
 
 <script>
@@ -486,392 +528,436 @@ Built by <a href="https://github.com/meyeringn" target="_blank">Nico Meyering</a
 const emissionFactors = { car:0.89, bus:0.18, subway:0.10, commuter_rail:0.22, bike:0, walk:0 };
 const modeLabels = { bus:'bus', subway:'subway/rail', commuter_rail:'commuter rail', bike:'bike', walk:'walking' };
 const LBS_PER_TREE = 48;
-const AVG_PHILLY_CO2 = 3200;
+const AVG_PA_CO2 = 3400; // PA statewide commuter avg (EPA/PennDOT)
 const WEEKS_PER_YEAR = 50;
-
 let calcData = null;
 let leafletMap = null;
 let userMarker = null;
 
-// ── Neighborhood data (pre-baked, based on DVRPC/SEPTA ridership + EPA data) ──
-const neighborhoods = [
-{ id:'center_city', name:'Center City', lat:39.952, lng:-75.163, savingsIndex:0.95, riders:'~180,000 daily', color:'#1b4332' },
-{ id:'west_philly', name:'West Philadelphia', lat:39.957, lng:-75.222, savingsIndex:0.85, riders:'~62,000 daily', color:'#2d6a4f' },
-{ id:'north_philly', name:'North Philadelphia', lat:39.991, lng:-75.162, savingsIndex:0.72, riders:'~48,000 daily', color:'#52b788' },
-{ id:'south_philly', name:'South Philadelphia', lat:39.917, lng:-75.172, savingsIndex:0.78, riders:'~55,000 daily', color:'#52b788' },
-{ id:'northeast', name:'Northeast Philadelphia', lat:40.060, lng:-75.043, savingsIndex:0.42, riders:'~28,000 daily', color:'#95d5b2' },
-{ id:'northwest', name:'Northwest Philadelphia', lat:40.068, lng:-75.195, savingsIndex:0.65, riders:'~36,000 daily', color:'#74c69d' },
-{ id:'kensington', name:'Kensington / Fishtown', lat:39.978, lng:-75.130, savingsIndex:0.80, riders:'~44,000 daily', color:'#52b788' },
-{ id:'germantown', name:'Germantown / Olney', lat:40.030, lng:-75.172, savingsIndex:0.68, riders:'~39,000 daily', color:'#74c69d' },
-{ id:'manayunk', name:'Manayunk / Roxborough', lat:40.025, lng:-75.228, savingsIndex:0.55, riders:'~18,000 daily', color:'#95d5b2' },
-{ id:'outside', name:'Outside Philadelphia', lat:39.952, lng:-75.163, savingsIndex:0.40, riders:'varies', color:'#d8f3dc' },
-];
+// ── PA Transit Agency Data ──
+const agencyData = {
+  septa:        { name:'SEPTA', full:'Southeastern PA Transportation Authority', icon:'🚇', region:'Philadelphia region', note:'Serves Philadelphia + 4 surrounding counties. ~900,000 daily riders.', avgCO2Saved: 0.92 },
+  patco:        { name:'PATCO', full:'Port Authority Transit Corp', icon:'🚇', region:'Philadelphia / South NJ', note:'Commuter heavy rail between Philly and southern NJ. Electrified, low-emissions.', avgCO2Saved: 0.94 },
+  paac:         { name:'Port Authority (Pittsburgh)', full:'Allegheny County Port Authority', icon:'🚌', region:'Pittsburgh region', note:'Serves Pittsburgh metro. Buses + light rail (The T). ~200,000 daily riders.', avgCO2Saved: 0.80 },
+  cata:         { name:'CATA', full:'Centre Area Transportation Authority', icon:'🚌', region:'State College / Centre County', note:'Serves Penn State and State College area.', avgCO2Saved: 0.75 },
+  rabbittransit:{ name:'rabbittransit', full:'rabbittransit (York / Adams)', icon:'🐇', region:'York & Adams counties', note:'Regional bus service covering York and Adams counties.', avgCO2Saved: 0.70 },
+  rrta:         { name:'RRTA', full:'Red Rose Transit Authority', icon:'🚌', region:'Lancaster County', note:'Serves Lancaster city and county. Regional bus network.', avgCO2Saved: 0.72 },
+  cpt:          { name:'CAT', full:'Capital Area Transit (Harrisburg)', icon:'🚌', region:'Harrisburg / Dauphin County', note:'Serves the Harrisburg metro area. Regional bus.', avgCO2Saved: 0.73 },
+  colts:        { name:'COLTS', full:'County of Lackawanna Transit System', icon:'🚌', region:'Scranton / Lackawanna County', note:'Serves Scranton and Lackawanna County.', avgCO2Saved: 0.71 },
+  lanta:        { name:'LANTA', full:'Lehigh and Northampton Transportation Authority', icon:'🚌', region:'Lehigh Valley (Allentown)', note:'Serves Allentown, Bethlehem, and Easton. ~10,000 daily riders.', avgCO2Saved: 0.74 },
+  barta:        { name:'BARTA', full:'Berks Area Regional Transportation Authority', icon:'🚌', region:'Reading / Berks County', note:'Serves Reading and Berks County.', avgCO2Saved: 0.72 },
+  emta:         { name:'EMTA', full:'Erie Metropolitan Transit Authority', icon:'🚌', region:'Erie County', note:'Serves Erie city and county.', avgCO2Saved: 0.70 },
+  other_pa:     { name:'Other PA transit', full:'Pennsylvania transit system', icon:'🚌', region:'Pennsylvania', note:'Using statewide average emissions factors.', avgCO2Saved: 0.75 },
+  out_of_state: { name:'Out-of-state', full:'National average transit', icon:'🚌', region:'USA', note:'Using national average transit emissions factors (EPA).', avgCO2Saved: 0.72 },
+};
+
+// ── Show agency info pill on selection ──
+function onAgencyChange() {
+  const val = document.getElementById('agency').value;
+  const pill = document.getElementById('agencyInfoPill');
+  if (!val || !agencyData[val]) { pill.style.display = 'none'; return; }
+  const a = agencyData[val];
+  document.getElementById('agencyPillName').textContent = `${a.icon} ${a.full}`;
+  document.getElementById('agencyPillDetail').textContent = `${a.region} · ${a.note}`;
+  pill.style.display = 'block';
+}
 
 // ── EIA Gas Price ──
 (async function loadGasPrice() {
-const badge = document.getElementById('gasBadge');
-try {
-const url = 'https://api.eia.gov/v2/petroleum/pri/gnd/data/?frequency=weekly&data[0]=value&facets[series][]=EMM_EPMR_PTE_R1Z_DPG&sort[0][column]=period&sort[0][direction]=desc&length=1&api_key=DEMO_KEY';
-const res = await fetch(url);
-const json = await res.json();
-const price = json?.response?.data?.[0]?.value;
-if (price && !isNaN(price)) {
-document.getElementById('gasCost').value = parseFloat(price).toFixed(2);
-badge.textContent = `Live · $${parseFloat(price).toFixed(2)}/gal · EIA`;
-badge.className = 'gas-badge';
-} else throw new Error('no price');
-} catch(e) {
-badge.textContent = 'Using default · $3.50';
-badge.className = 'gas-badge error';
-}
+  const badge = document.getElementById('gasBadge');
+  try {
+    const url = 'https://api.eia.gov/v2/petroleum/pri/gnd/data/?frequency=weekly&data[0]=value&facets[series][]=EMM_EPMR_PTE_R1Z_DPG&sort[0][column]=period&sort[0][direction]=desc&length=1&api_key=DEMO_KEY';
+    const res = await fetch(url);
+    const json = await res.json();
+    const price = json?.response?.data?.[0]?.value;
+    if (price && !isNaN(price)) {
+      document.getElementById('gasCost').value = parseFloat(price).toFixed(2);
+      badge.textContent = `Live · $${parseFloat(price).toFixed(2)}/gal · EIA`;
+      badge.className = 'gas-badge';
+    } else throw new Error('no price');
+  } catch(e) {
+    badge.textContent = 'Using default · $3.50';
+    badge.className = 'gas-badge error';
+  }
 })();
+
+// ── Neighborhood data ──
+const neighborhoods = [
+  { id:'center_city', name:'Center City', lat:39.952, lng:-75.163, savingsIndex:0.95, riders:'~180,000 daily', color:'#1b4332' },
+  { id:'west_philly', name:'West Philadelphia', lat:39.957, lng:-75.222, savingsIndex:0.85, riders:'~62,000 daily', color:'#2d6a4f' },
+  { id:'north_philly', name:'North Philadelphia', lat:39.991, lng:-75.162, savingsIndex:0.72, riders:'~48,000 daily', color:'#52b788' },
+  { id:'south_philly', name:'South Philadelphia', lat:39.917, lng:-75.172, savingsIndex:0.78, riders:'~55,000 daily', color:'#52b788' },
+  { id:'northeast', name:'Northeast Philadelphia', lat:40.060, lng:-75.043, savingsIndex:0.42, riders:'~28,000 daily', color:'#95d5b2' },
+  { id:'northwest', name:'Northwest Philadelphia', lat:40.068, lng:-75.195, savingsIndex:0.65, riders:'~36,000 daily', color:'#74c69d' },
+  { id:'kensington', name:'Kensington / Fishtown', lat:39.978, lng:-75.130, savingsIndex:0.80, riders:'~44,000 daily', color:'#52b788' },
+  { id:'germantown', name:'Germantown / Olney', lat:40.030, lng:-75.172, savingsIndex:0.68, riders:'~39,000 daily', color:'#74c69d' },
+  { id:'manayunk', name:'Manayunk / Roxborough', lat:40.025, lng:-75.228, savingsIndex:0.55, riders:'~18,000 daily', color:'#95d5b2' },
+  { id:'outside', name:'Outside Philadelphia', lat:39.952, lng:-75.163, savingsIndex:0.40, riders:'varies', color:'#d8f3dc' },
+];
 
 // ── Calculate ──
 function calculate() {
-const miles = parseFloat(document.getElementById('miles').value);
-const days = parseFloat(document.getElementById('days').value);
-const mode = document.getElementById('mode').value;
-const gasCost = parseFloat(document.getElementById('gasCost').value) || 3.50;
-const mpg = parseFloat(document.getElementById('mpg').value) || 28;
-const hood = document.getElementById('neighborhood').value;
-const errEl = document.getElementById('errorMsg');
+  const miles = parseFloat(document.getElementById('miles').value);
+  const days  = parseFloat(document.getElementById('days').value);
+  const mode  = document.getElementById('mode').value;
+  const gasCost = parseFloat(document.getElementById('gasCost').value) || 3.50;
+  const mpg   = parseFloat(document.getElementById('mpg').value) || 28;
+  const hood  = document.getElementById('neighborhood').value;
+  const agencyKey = document.getElementById('agency').value;
+  const errEl = document.getElementById('errorMsg');
 
-if (!miles || !days || miles <= 0 || days < 1 || days > 7) {
-errEl.style.display = 'block'; return;
+  if (!miles || !days || miles <= 0 || days < 1 || days > 7) {
+    errEl.style.display = 'block'; return;
+  }
+  errEl.style.display = 'none';
+
+  const annualMiles = miles * 2 * days * WEEKS_PER_YEAR;
+  const carEmissions = annualMiles * emissionFactors.car;
+  const transitEmissions = annualMiles * emissionFactors[mode];
+  const annualCO2Saved = carEmissions - transitEmissions;
+  const annualTrees = annualCO2Saved / LBS_PER_TREE;
+  const annualMoney = (annualMiles / mpg) * gasCost;
+
+  calcData = {
+    annualCO2: annualCO2Saved, annualCO2You: transitEmissions,
+    annualCarCO2: carEmissions, annualMiles, annualTrees, annualMoney,
+    mode, gasCost, mpg, hood, agencyKey
+  };
+
+  // Reset toggles
+  document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.toggle-btn').classList.add('active');
+
+  const results = document.getElementById('results');
+  results.style.display = 'block';
+
+  // Show agency result banner
+  updateAgencyBanner(agencyKey);
+
+  animateStats(calcData, 'weekly', () => {
+    updateComparisonBars();
+    updateFunFact(calcData);
+    updateShareCard();
+    if (annualCO2Saved > 200) fireConfetti();
+  });
+
+  document.getElementById('lifetimeCard').style.display = 'block';
+  document.getElementById('mapCard').style.display = 'block';
+
+  const slider = document.getElementById('yearSlider');
+  slider.value = 10;
+  updateSliderTrack(slider);
+  updateLifetime(10);
+  initMap(hood);
+  results.scrollIntoView({ behavior: 'smooth' });
 }
-errEl.style.display = 'none';
 
-const annualMiles = miles * 2 * days * WEEKS_PER_YEAR;
-const carEmissions = annualMiles * emissionFactors.car;
-const transitEmissions = annualMiles * emissionFactors[mode];
-const annualCO2Saved = carEmissions - transitEmissions;
-const annualTrees = annualCO2Saved / LBS_PER_TREE;
-const annualMoney = (annualMiles / mpg) * gasCost;
-
-calcData = {
-annualCO2: annualCO2Saved, annualCO2You: transitEmissions,
-annualCarCO2: carEmissions, annualMiles, annualTrees, annualMoney,
-mode, gasCost, mpg, hood
-};
-
-// Reset toggles
-document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
-document.querySelector('.toggle-btn').classList.add('active');
-
-const results = document.getElementById('results');
-results.style.display = 'block';
-
-animateStats(calcData, 'weekly', () => {
-updateComparisonBars();
-updateFunFact(calcData);
-updateShareCard();
-if (annualCO2Saved > 200) fireConfetti();
-});
-
-// Show lifetime & map
-document.getElementById('lifetimeCard').style.display = 'block';
-document.getElementById('mapCard').style.display = 'block';
-
-// Reset slider to 10
-const slider = document.getElementById('yearSlider');
-slider.value = 10;
-updateSliderTrack(slider);
-updateLifetime(10);
-initMap(hood);
-
-results.scrollIntoView({ behavior: 'smooth' });
+// ── Agency banner in results ──
+function updateAgencyBanner(agencyKey) {
+  const banner = document.getElementById('agencyResultBanner');
+  if (!agencyKey || !agencyData[agencyKey]) { banner.style.display = 'none'; return; }
+  const a = agencyData[agencyKey];
+  document.getElementById('agencyBannerIcon').textContent = a.icon;
+  document.getElementById('agencyBannerName').textContent = a.full;
+  document.getElementById('agencyBannerNote').textContent = `${a.region} · Emissions data: EPA/APTA`;
+  banner.style.display = 'flex';
 }
 
 // ── Animated counter ──
 function animateCounter(el, target, formatter, duration = 1100) {
-const start = performance.now();
-function step(now) {
-const p = Math.min((now - start) / duration, 1);
-const e = 1 - Math.pow(1 - p, 3);
-el.textContent = formatter(e * target, p === 1);
-if (p < 1) requestAnimationFrame(step);
-}
-requestAnimationFrame(step);
+  const start = performance.now();
+  function step(now) {
+    const p = Math.min((now - start) / duration, 1);
+    const e = 1 - Math.pow(1 - p, 3);
+    el.textContent = formatter(e * target, p === 1);
+    if (p < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
 }
 
 function animateStats(data, period, onComplete) {
-const d = { weekly:50, monthly:12, annual:1 }[period];
-animateCounter(document.getElementById('co2Saved'), data.annualCO2 / d, (v,f) => Math.round(v).toLocaleString());
-setTimeout(() => animateCounter(document.getElementById('milesAvoided'), data.annualMiles / d, (v,f) => Math.round(v).toLocaleString()), 80);
-setTimeout(() => animateCounter(document.getElementById('treesEquiv'), data.annualTrees / d, (v,f) => v.toFixed(f?1:0)), 160);
-setTimeout(() => animateCounter(document.getElementById('moneySaved'), data.annualMoney / d,
-(v,f) => '$' + v.toLocaleString('en-US',{minimumFractionDigits:f?2:0,maximumFractionDigits:f?2:0})), 240);
-document.getElementById('contextMsg').textContent = getContextMessage(data.annualCO2, data.mode);
-setTimeout(onComplete, 1300);
+  const d = { weekly:50, monthly:12, annual:1 }[period];
+  animateCounter(document.getElementById('co2Saved'), data.annualCO2 / d, (v,f) => Math.round(v).toLocaleString());
+  setTimeout(() => animateCounter(document.getElementById('milesAvoided'), data.annualMiles / d, (v,f) => Math.round(v).toLocaleString()), 80);
+  setTimeout(() => animateCounter(document.getElementById('treesEquiv'), data.annualTrees / d, (v,f) => v.toFixed(f?1:0)), 160);
+  setTimeout(() => animateCounter(document.getElementById('moneySaved'), data.annualMoney / d,
+    (v,f) => '$' + v.toLocaleString('en-US',{minimumFractionDigits:f?2:0,maximumFractionDigits:f?2:0})), 240);
+  document.getElementById('contextMsg').textContent = getContextMessage(data.annualCO2, data.mode);
+  setTimeout(onComplete, 1300);
 }
 
 // ── Toggle ──
 function setView(period, btn) {
-if (!calcData) return;
-if (btn) { document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); }
-const d = {weekly:50,monthly:12,annual:1}[period];
-document.getElementById('co2Saved').textContent = Math.round(calcData.annualCO2/d).toLocaleString();
-document.getElementById('milesAvoided').textContent = Math.round(calcData.annualMiles/d).toLocaleString();
-document.getElementById('treesEquiv').textContent = (calcData.annualTrees/d).toFixed(1);
-document.getElementById('moneySaved').textContent = '$'+(calcData.annualMoney/d).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
-document.getElementById('contextMsg').textContent = getContextMessage(calcData.annualCO2, calcData.mode);
+  if (!calcData) return;
+  if (btn) { document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); }
+  const d = {weekly:50,monthly:12,annual:1}[period];
+  document.getElementById('co2Saved').textContent = Math.round(calcData.annualCO2/d).toLocaleString();
+  document.getElementById('milesAvoided').textContent = Math.round(calcData.annualMiles/d).toLocaleString();
+  document.getElementById('treesEquiv').textContent = (calcData.annualTrees/d).toFixed(1);
+  document.getElementById('moneySaved').textContent = '$'+(calcData.annualMoney/d).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+  document.getElementById('contextMsg').textContent = getContextMessage(calcData.annualCO2, calcData.mode);
 }
 
 // ── Lifetime projector ──
 function updateLifetime(years) {
-years = parseInt(years);
-document.getElementById('yearDisplay').textContent = years;
-updateSliderTrack(document.getElementById('yearSlider'));
-if (!calcData) return;
-
-const totalCO2 = calcData.annualCO2 * years;
-const totalTrees = calcData.annualTrees * years;
-const totalMoney = calcData.annualMoney * years;
-const totalMiles = calcData.annualMiles * years;
-
-animateCounter(document.getElementById('lt-co2'), totalCO2, (v,f) => Math.round(v).toLocaleString());
-animateCounter(document.getElementById('lt-trees'), totalTrees, (v,f) => Math.round(v).toLocaleString(), 800);
-animateCounter(document.getElementById('lt-money'), totalMoney, (v,f) => '$'+Math.round(v).toLocaleString(), 800);
-animateCounter(document.getElementById('lt-miles'), totalMiles, (v,f) => Math.round(v).toLocaleString(), 800);
-
-// Milestone
-const milestone = getLifetimeMilestone(totalCO2, totalMoney, totalMiles, years);
-document.getElementById('ltMilestone').innerHTML = milestone;
+  years = parseInt(years);
+  document.getElementById('yearDisplay').textContent = years;
+  updateSliderTrack(document.getElementById('yearSlider'));
+  if (!calcData) return;
+  const totalCO2   = calcData.annualCO2 * years;
+  const totalTrees = calcData.annualTrees * years;
+  const totalMoney = calcData.annualMoney * years;
+  const totalMiles = calcData.annualMiles * years;
+  animateCounter(document.getElementById('lt-co2'),   totalCO2,   (v,f) => Math.round(v).toLocaleString());
+  animateCounter(document.getElementById('lt-trees'), totalTrees, (v,f) => Math.round(v).toLocaleString(), 800);
+  animateCounter(document.getElementById('lt-money'), totalMoney, (v,f) => '$'+Math.round(v).toLocaleString(), 800);
+  animateCounter(document.getElementById('lt-miles'), totalMiles, (v,f) => Math.round(v).toLocaleString(), 800);
+  document.getElementById('ltMilestone').innerHTML = getLifetimeMilestone(totalCO2, totalMoney, totalMiles, years);
 }
 
 function updateSliderTrack(slider) {
-const pct = ((slider.value - slider.min) / (slider.max - slider.min)) * 100;
-slider.style.setProperty('--pct', pct + '%');
+  const pct = ((slider.value - slider.min) / (slider.max - slider.min)) * 100;
+  slider.style.setProperty('--pct', pct + '%');
 }
 
 function getLifetimeMilestone(co2, money, miles, years) {
-const roadTrips = (miles / 2790).toFixed(0);
-const acres = (co2 / 4800).toFixed(1); // avg forest absorbs ~4800 lbs/acre/year
-if (money > 50000) return `💰 Over <strong>$${Math.round(money).toLocaleString()}</strong> in gas savings over ${years} years. That's a down payment on a house in Fishtown.`;
-if (money > 20000) return `💰 Over <strong>$${Math.round(money).toLocaleString()}</strong> saved — enough to pay off a car you never needed.`;
-if (co2 > 100000) return `🌲 <strong>${Math.round(co2).toLocaleString()} lbs</strong> of CO₂ avoided — equivalent to preserving <strong>${acres} acres</strong> of forest for a year.`;
-if (miles > 50000) return `🗺️ You'll skip <strong>${Math.round(miles).toLocaleString()} car miles</strong> — that's <strong>${roadTrips} road trips</strong> from Philadelphia to Los Angeles.`;
-if (years >= 30) return `🏆 A 30-year transit habit is a legacy. You're leaving Philadelphia cleaner than you found it.`;
-return `🌱 <strong>${Math.round(co2).toLocaleString()} lbs</strong> of CO₂ avoided over ${years} years. Every trip compounds.`;
+  const roadTrips = (miles / 2790).toFixed(0);
+  const acres = (co2 / 4800).toFixed(1);
+  if (money > 50000) return `💰 Over <strong>$${Math.round(money).toLocaleString()}</strong> in gas savings over ${years} years. That's a down payment on a house in Fishtown.`;
+  if (money > 20000) return `💰 Over <strong>$${Math.round(money).toLocaleString()}</strong> saved — enough to pay off a car you never needed.`;
+  if (co2 > 100000)  return `🌲 <strong>${Math.round(co2).toLocaleString()} lbs</strong> of CO₂ avoided — equivalent to preserving <strong>${acres} acres</strong> of forest for a year.`;
+  if (miles > 50000) return `🗺️ You'll skip <strong>${Math.round(miles).toLocaleString()} car miles</strong> — that's <strong>${roadTrips} road trips</strong> from Philadelphia to Los Angeles.`;
+  if (years >= 30)   return `🏆 A 30-year transit habit is a legacy. You're leaving Pennsylvania cleaner than you found it.`;
+  return `🌱 <strong>${Math.round(co2).toLocaleString()} lbs</strong> of CO₂ avoided over ${years} years. Every trip compounds.`;
 }
 
 // ── Fun fact ──
 function updateFunFact(data) {
-const co2 = data.annualCO2;
-const mi = data.annualMiles;
-const mode = data.mode;
-const schoolBuses = (co2 * 8.7 / 2500).toFixed(1);
-const drivingDays = Math.round(co2 / 16);
-const burgers = Math.round(co2 / 6.6);
-const phoneCharges = Math.round(co2 / 0.022).toLocaleString();
-const roadTrips = (mi / 2790).toFixed(1);
-
-const facts = [];
-if (mode === 'bike' || mode === 'walk') {
-facts.push({ icon:'🏆', text:`You emit <strong>zero grams</strong> of CO₂ on your commute. You're literally the gold standard.` });
-facts.push({ icon:'🚲', text:`Your commute produces less carbon than streaming an hour of video. Seriously.` });
-} else {
-if (co2 > 100) facts.push({ icon:'🚌', text:`Your annual CO₂ savings of <strong>${Math.round(co2).toLocaleString()} lbs</strong> would fill about <strong>${schoolBuses} school buses</strong> with gas.` });
-if (drivingDays > 1) facts.push({ icon:'📅', text:`You avoid the equivalent of <strong>${drivingDays} days</strong> of average American car-driving emissions every year.` });
-if (burgers > 10) facts.push({ icon:'🍔', text:`Your annual savings equal the carbon footprint of about <strong>${burgers.toLocaleString()} cheeseburgers</strong>. That's a lot of burgers.` });
-if (mi > 500) facts.push({ icon:'🗺️', text:`You skip <strong>${Math.round(mi).toLocaleString()} car miles</strong> a year — that's <strong>${roadTrips}× the drive from NYC to LA</strong>.` });
-facts.push({ icon:'📱', text:`Your CO₂ savings could power <strong>${phoneCharges} smartphone charges</strong>. Your commute is basically a charger farm.` });
-}
-const pick = facts[Math.floor(Math.random() * facts.length)];
-document.getElementById('funFactIcon').textContent = pick.icon;
-document.getElementById('funFactText').innerHTML = pick.text;
-document.getElementById('funFact').style.display = 'flex';
+  const co2  = data.annualCO2;
+  const mi   = data.annualMiles;
+  const mode = data.mode;
+  const schoolBuses    = (co2 * 8.7 / 2500).toFixed(1);
+  const drivingDays    = Math.round(co2 / 16);
+  const burgers        = Math.round(co2 / 6.6);
+  const phoneCharges   = Math.round(co2 / 0.022).toLocaleString();
+  const roadTrips      = (mi / 2790).toFixed(1);
+  const facts = [];
+  if (mode === 'bike' || mode === 'walk') {
+    facts.push({ icon:'🏆', text:`You emit <strong>zero grams</strong> of CO₂ on your commute. You're literally the gold standard.` });
+    facts.push({ icon:'🚲', text:`Your commute produces less carbon than streaming an hour of video. Seriously.` });
+  } else {
+    if (co2 > 100) facts.push({ icon:'🚌', text:`Your annual CO₂ savings of <strong>${Math.round(co2).toLocaleString()} lbs</strong> would fill about <strong>${schoolBuses} school buses</strong> with gas.` });
+    if (drivingDays > 1) facts.push({ icon:'📅', text:`You avoid the equivalent of <strong>${drivingDays} days</strong> of average American car-driving emissions every year.` });
+    if (burgers > 10) facts.push({ icon:'🍔', text:`Your annual savings equal the carbon footprint of about <strong>${burgers.toLocaleString()} cheeseburgers</strong>. That's a lot of burgers.` });
+    if (mi > 500) facts.push({ icon:'🗺️', text:`You skip <strong>${Math.round(mi).toLocaleString()} car miles</strong> a year — that's <strong>${roadTrips}× the drive from NYC to LA</strong>.` });
+    facts.push({ icon:'📱', text:`Your CO₂ savings could power <strong>${phoneCharges} smartphone charges</strong>. Your commute is basically a charger farm.` });
+  }
+  const pick = facts[Math.floor(Math.random() * facts.length)];
+  document.getElementById('funFactIcon').textContent = pick.icon;
+  document.getElementById('funFactText').innerHTML = pick.text;
+  document.getElementById('funFact').style.display = 'flex';
 }
 
 // ── Comparison bars ──
 function updateComparisonBars() {
-const you = Math.round(calcData.annualCO2You);
-const avg = AVG_PHILLY_CO2;
-const car = Math.round(calcData.annualCarCO2);
-const max = Math.max(you, avg, car, 1);
-document.getElementById('cmp-you-val').textContent = you.toLocaleString() + ' lbs';
-document.getElementById('cmp-avg-val').textContent = avg.toLocaleString() + ' lbs';
-document.getElementById('cmp-car-val').textContent = car.toLocaleString() + ' lbs';
-setTimeout(() => {
-document.getElementById('cmp-you-bar').style.width = Math.max((you/max)*100, 2) + '%';
-document.getElementById('cmp-avg-bar').style.width = ((avg/max)*100) + '%';
-document.getElementById('cmp-car-bar').style.width = ((car/max)*100) + '%';
-}, 200);
+  const you  = Math.round(calcData.annualCO2You);
+  const avg  = AVG_PA_CO2;
+  const car  = Math.round(calcData.annualCarCO2);
+  const max  = Math.max(you, avg, car, 1);
+  document.getElementById('cmp-you-val').textContent = you.toLocaleString() + ' lbs';
+  document.getElementById('cmp-avg-val').textContent = avg.toLocaleString() + ' lbs';
+  document.getElementById('cmp-car-val').textContent = car.toLocaleString() + ' lbs';
+  // Update comparison note if agency is known
+  const agencyKey = calcData.agencyKey;
+  if (agencyKey && agencyData[agencyKey]) {
+    document.getElementById('comparisonNote').textContent =
+      `Avg. PA commuter: ~${avg.toLocaleString()} lbs CO₂/year · EPA + PennDOT data · Agency: ${agencyData[agencyKey].name}`;
+  }
+  setTimeout(() => {
+    document.getElementById('cmp-you-bar').style.width = Math.max((you/max)*100, 2) + '%';
+    document.getElementById('cmp-avg-bar').style.width = ((avg/max)*100) + '%';
+    document.getElementById('cmp-car-bar').style.width = ((car/max)*100) + '%';
+  }, 200);
 }
 
 // ── Map ──
 function initMap(selectedHood) {
-if (!leafletMap) {
-leafletMap = L.map('carbonMap', { zoomControl: true, scrollWheelZoom: false })
-.setView([39.99, -75.15], 11);
-
-L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-attribution: '© OpenStreetMap © CARTO',
-subdomains: 'abcd', maxZoom: 16
-}).addTo(leafletMap);
-} else {
-leafletMap.setView([39.99, -75.15], 11);
-if (userMarker) { leafletMap.removeLayer(userMarker); userMarker = null; }
+  if (!leafletMap) {
+    leafletMap = L.map('carbonMap', { zoomControl: true, scrollWheelZoom: false })
+      .setView([39.99, -75.15], 11);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '© OpenStreetMap © CARTO',
+      subdomains: 'abcd', maxZoom: 16
+    }).addTo(leafletMap);
+  } else {
+    leafletMap.setView([39.99, -75.15], 11);
+    if (userMarker) { leafletMap.removeLayer(userMarker); userMarker = null; }
+  }
+  leafletMap.eachLayer(layer => {
+    if (layer instanceof L.CircleMarker || layer instanceof L.Marker) {
+      if (layer !== userMarker) leafletMap.removeLayer(layer);
+    }
+  });
+  neighborhoods.filter(n => n.id !== 'outside').forEach(n => {
+    const radius = 28 + n.savingsIndex * 22;
+    L.circleMarker([n.lat, n.lng], {
+      radius, fillColor: n.color, color: 'white',
+      weight: 2, opacity: 0.9, fillOpacity: 0.72
+    })
+    .bindPopup(`<strong>${n.name}</strong><br>Transit ridership: ${n.riders}<br>CO₂ savings index: ${Math.round(n.savingsIndex * 100)}%`)
+    .addTo(leafletMap);
+    L.marker([n.lat, n.lng], {
+      icon: L.divIcon({
+        className: '',
+        html: `<div style="font-size:10px;font-weight:700;color:#1b4332;text-shadow:0 0 3px white,0 0 3px white;white-space:nowrap;text-align:center">${n.name}</div>`,
+        iconAnchor: [50, -14]
+      })
+    }).addTo(leafletMap);
+  });
+  if (selectedHood && selectedHood !== '') {
+    const hood = neighborhoods.find(n => n.id === selectedHood);
+    if (hood) {
+      const pinIcon = L.divIcon({
+        className: '',
+        html: `<div style="font-size:28px;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.4))">📍</div>`,
+        iconSize: [30, 30], iconAnchor: [15, 30]
+      });
+      userMarker = L.marker([hood.lat + 0.008, hood.lng + 0.008], { icon: pinIcon })
+        .bindPopup(`<strong>You're here: ${hood.name}</strong><br>Savings index: ${Math.round(hood.savingsIndex*100)}%<br>Your annual CO₂ savings: ${Math.round(calcData.annualCO2).toLocaleString()} lbs`)
+        .addTo(leafletMap);
+      const noteEl = document.getElementById('mapPinNote');
+      const textEl = document.getElementById('mapPinText');
+      const pct = Math.round(hood.savingsIndex * 100);
+      textEl.textContent = `${hood.name} ranks ${pct >= 80 ? 'among the highest' : pct >= 60 ? 'above average' : 'moderate'} for transit CO₂ savings in Philadelphia. Daily transit ridership: ${hood.riders}.`;
+      noteEl.style.display = 'block';
+    }
+  } else {
+    document.getElementById('mapPinNote').style.display = 'none';
+  }
+  setTimeout(() => leafletMap.invalidateSize(), 100);
 }
 
-// Draw neighborhood circles
-leafletMap.eachLayer(layer => {
-if (layer instanceof L.CircleMarker || layer instanceof L.Marker) {
-if (layer !== userMarker) leafletMap.removeLayer(layer);
-}
-});
-
-neighborhoods.filter(n => n.id !== 'outside').forEach(n => {
-const radius = 28 + n.savingsIndex * 22;
-L.circleMarker([n.lat, n.lng], {
-radius, fillColor: n.color, color: 'white',
-weight: 2, opacity: 0.9, fillOpacity: 0.72
-})
-.bindPopup(`<strong>${n.name}</strong><br>Transit ridership: ${n.riders}<br>CO₂ savings index: ${Math.round(n.savingsIndex * 100)}%`)
-.addTo(leafletMap);
-
-// Label
-L.marker([n.lat, n.lng], {
-icon: L.divIcon({
-className: '',
-html: `<div style="font-size:10px;font-weight:700;color:#1b4332;text-shadow:0 0 3px white,0 0 3px white;white-space:nowrap;text-align:center">${n.name}</div>`,
-iconAnchor: [50, -14]
-})
-}).addTo(leafletMap);
-});
-
-// User pin
-if (selectedHood && selectedHood !== '') {
-const hood = neighborhoods.find(n => n.id === selectedHood);
-if (hood) {
-const pinIcon = L.divIcon({
-className: '',
-html: `<div style="font-size:28px;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.4))">📍</div>`,
-iconSize: [30, 30], iconAnchor: [15, 30]
-});
-userMarker = L.marker([hood.lat + 0.008, hood.lng + 0.008], { icon: pinIcon })
-.bindPopup(`<strong>You're here: ${hood.name}</strong><br>Savings index: ${Math.round(hood.savingsIndex*100)}%<br>Your annual CO₂ savings: ${Math.round(calcData.annualCO2).toLocaleString()} lbs`)
-.addTo(leafletMap);
-
-const noteEl = document.getElementById('mapPinNote');
-const textEl = document.getElementById('mapPinText');
-const pct = Math.round(hood.savingsIndex * 100);
-textEl.textContent = `${hood.name} ranks ${pct >= 80 ? 'among the highest' : pct >= 60 ? 'above average' : 'moderate'} for transit CO₂ savings in Philadelphia. Daily transit ridership: ${hood.riders}.`;
-noteEl.style.display = 'block';
-}
-} else {
-document.getElementById('mapPinNote').style.display = 'none';
-}
-
-setTimeout(() => leafletMap.invalidateSize(), 100);
-}
-
-// ── Share card ──
+// ── Share card (download) ──
 function updateShareCard() {
-const label = modeLabels[calcData.mode];
-document.getElementById('sc-co2').textContent = Math.round(calcData.annualCO2).toLocaleString();
-document.getElementById('sc-sub').textContent = `by commuting via ${label} instead of driving`;
-document.getElementById('sc-trees').textContent = Math.round(calcData.annualTrees).toLocaleString();
-document.getElementById('sc-miles').textContent = Math.round(calcData.annualMiles).toLocaleString();
-document.getElementById('sc-money').textContent = '$' + Math.round(calcData.annualMoney).toLocaleString();
+  const label = modeLabels[calcData.mode];
+  const agencyKey = calcData.agencyKey;
+  document.getElementById('sc-co2').textContent = Math.round(calcData.annualCO2).toLocaleString();
+  document.getElementById('sc-sub').textContent = `by commuting via ${label} instead of driving`;
+  document.getElementById('sc-trees').textContent = Math.round(calcData.annualTrees).toLocaleString();
+  document.getElementById('sc-miles').textContent = Math.round(calcData.annualMiles).toLocaleString();
+  document.getElementById('sc-money').textContent = '$' + Math.round(calcData.annualMoney).toLocaleString();
+  // Agency pill on card
+  const agencyEl = document.getElementById('sc-agency');
+  if (agencyKey && agencyData[agencyKey]) {
+    agencyEl.textContent = `${agencyData[agencyKey].icon} ${agencyData[agencyKey].name} · ${agencyData[agencyKey].region}`;
+    agencyEl.style.display = 'inline-block';
+  } else {
+    agencyEl.style.display = 'none';
+  }
 }
 
 async function downloadCard() {
-if (!calcData) return;
-showToast('⏳ Generating your card…', false);
-try {
-const canvas = await html2canvas(document.getElementById('shareCard'), {
-width:1080, height:1080, scale:1, useCORS:true, backgroundColor:null, logging:false
-});
-const link = document.createElement('a');
-link.download = 'transit-carbon-impact.png';
-link.href = canvas.toDataURL('image/png');
-link.click();
-showToast('✅ Card downloaded! Ready for Instagram or Stories.', true);
-} catch(e) {
-showToast('❌ Could not generate card. Try screenshotting instead.', true);
-}
+  if (!calcData) return;
+  showToast('⏳ Generating your card…', false);
+  try {
+    const canvas = await html2canvas(document.getElementById('shareCard'), {
+      width:1080, height:1080, scale:1, useCORS:true, backgroundColor:null, logging:false
+    });
+    const link = document.createElement('a');
+    link.download = 'transit-carbon-impact.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    showToast('✅ Card downloaded! Ready for Instagram or Stories.', true);
+  } catch(e) {
+    showToast('❌ Could not generate card. Try screenshotting instead.', true);
+  }
 }
 
 // ── LinkedIn share ──
 function shareResult() {
-if (!calcData) return;
-const co2 = Math.round(calcData.annualCO2).toLocaleString();
-const money = Math.round(calcData.annualMoney);
-const trees = Math.round(calcData.annualTrees);
-const label = modeLabels[calcData.mode];
-const text = `I just calculated my transit commute's climate impact — and the numbers are real.\n\nBy commuting via ${label} instead of driving, I avoid roughly ${co2} lbs of CO₂ per year. That's the equivalent of ${trees} trees worth of carbon — and $${money} in gas savings.\n\nPhiladelphia's transit network isn't just a way to get around. It's climate infrastructure.\n\nTry it yourself 👇\nhttps://github.com/meyeringn/transit-carbon-calculator\n\n#TransitEquity #Philadelphia #ClimateAction #SEPTA`;
-navigator.clipboard.writeText(text)
-.then(() => showToast('✅ Post copied! Paste into LinkedIn.', true))
-.catch(() => alert('Copy this post:\n\n' + text));
+  if (!calcData) return;
+  const co2   = Math.round(calcData.annualCO2).toLocaleString();
+  const money = Math.round(calcData.annualMoney);
+  const trees = Math.round(calcData.annualTrees);
+  const label = modeLabels[calcData.mode];
+  const agencyKey = calcData.agencyKey;
+  const agencyLine = agencyKey && agencyData[agencyKey]
+    ? `\n${agencyData[agencyKey].icon} Riding ${agencyData[agencyKey].name} in the ${agencyData[agencyKey].region}.`
+    : '';
+  const text = `I just calculated my transit commute's climate impact — and the numbers are real.\n\nBy commuting via ${label} instead of driving, I avoid roughly ${co2} lbs of CO₂ per year. That's the equivalent of ${trees} trees worth of carbon — and $${money} in gas savings.${agencyLine}\n\nPennsylvania's transit network isn't just a way to get around. It's climate infrastructure.\n\nTry it yourself 👇\nhttps://meyeringn.github.io/transit-carbon-calculator\n\n#TransitEquity #Pennsylvania #ClimateAction #PublicTransit #Transit4AllPA`;
+  navigator.clipboard.writeText(text)
+    .then(() => showToast('✅ Post copied! Paste into LinkedIn.', true))
+    .catch(() => alert('Copy this post:\n\n' + text));
 }
 
 // ── Reset ──
 function resetCalculator() {
-calcData = null;
-['results','lifetimeCard','mapCard'].forEach(id => document.getElementById(id).style.display = 'none');
-document.getElementById('miles').value = '';
-document.getElementById('days').value = '';
-document.getElementById('mpg').value = '28';
-document.getElementById('mode').selectedIndex = 0;
-document.getElementById('neighborhood').selectedIndex = 0;
-document.getElementById('errorMsg').style.display = 'none';
-document.getElementById('shareToast').style.display = 'none';
-document.getElementById('funFact').style.display = 'none';
-document.getElementById('mapPinNote').style.display = 'none';
-['cmp-you-bar','cmp-avg-bar','cmp-car-bar'].forEach(id => {
-document.getElementById(id).style.width = '0%';
-});
-if (leafletMap) { leafletMap.remove(); leafletMap = null; userMarker = null; }
-document.getElementById('inputCard').scrollIntoView({ behavior:'smooth' });
+  calcData = null;
+  ['results','lifetimeCard','mapCard'].forEach(id => document.getElementById(id).style.display = 'none');
+  document.getElementById('miles').value = '';
+  document.getElementById('days').value = '';
+  document.getElementById('mpg').value = '28';
+  document.getElementById('mode').selectedIndex = 0;
+  document.getElementById('neighborhood').selectedIndex = 0;
+  document.getElementById('agency').selectedIndex = 0;
+  document.getElementById('agencyInfoPill').style.display = 'none';
+  document.getElementById('errorMsg').style.display = 'none';
+  document.getElementById('shareToast').style.display = 'none';
+  document.getElementById('funFact').style.display = 'none';
+  document.getElementById('mapPinNote').style.display = 'none';
+  ['cmp-you-bar','cmp-avg-bar','cmp-car-bar'].forEach(id => {
+    document.getElementById(id).style.width = '0%';
+  });
+  if (leafletMap) { leafletMap.remove(); leafletMap = null; userMarker = null; }
+  document.getElementById('inputCard').scrollIntoView({ behavior:'smooth' });
 }
 
 // ── Toast ──
 function showToast(msg, autohide) {
-const t = document.getElementById('shareToast');
-t.textContent = msg;
-t.style.display = 'block';
-if (autohide) setTimeout(() => { t.style.display = 'none'; }, 4000);
+  const t = document.getElementById('shareToast');
+  t.textContent = msg;
+  t.style.display = 'block';
+  if (autohide) setTimeout(() => { t.style.display = 'none'; }, 4000);
 }
 
 // ── Context message ──
 function getContextMessage(co2, mode) {
-if (mode==='bike'||mode==='walk') return '🌱 Zero emissions — you\'re as clean as it gets. Philly thanks you.';
-if (co2>5000) return '🏆 Enormous impact. You\'re saving more carbon than most Philadelphians by a wide margin. Share this.';
-if (co2>2000) return '🚌 Solid. Your transit habit is doing real work — like planting a small urban grove every year.';
-if (co2>500) return '✅ Every trip counts. Your commute choices are making a measurable difference for Philadelphia\'s air quality.';
-return '🌿 Even small shifts add up. Every car trip you skip is a win for the city.';
+  if (mode==='bike'||mode==='walk') return '🌱 Zero emissions — you\'re as clean as it gets. Pennsylvania thanks you.';
+  if (co2>5000) return '🏆 Enormous impact. You\'re saving more carbon than most Pennsylvanians by a wide margin. Share this.';
+  if (co2>2000) return '🚌 Solid. Your transit habit is doing real work — like planting a small urban grove every year.';
+  if (co2>500)  return '✅ Every trip counts. Your commute choices are making a measurable difference for Pennsylvania\'s air quality.';
+  return '🌿 Even small shifts add up. Every car trip you skip is a win for the commonwealth.';
 }
 
 // ── Confetti ──
 function fireConfetti() {
-const canvas = document.getElementById('confettiCanvas');
-const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-const colors = ['#2d6a4f','#52b788','#86efac','#f59e0b','#fbbf24','#ffffff','#0a66c2'];
-const pieces = Array.from({length:120}, () => ({
-x: Math.random()*canvas.width, y: -Math.random()*canvas.height*0.5,
-w: 6+Math.random()*8, h: 10+Math.random()*6,
-color: colors[Math.floor(Math.random()*colors.length)],
-rot: Math.random()*360, rotV: (Math.random()-0.5)*6,
-vx: (Math.random()-0.5)*3, vy: 2+Math.random()*4, alpha: 1
-}));
-let frame = 0;
-function draw() {
-ctx.clearRect(0,0,canvas.width,canvas.height);
-pieces.forEach(p => {
-p.x+=p.vx; p.y+=p.vy; p.rot+=p.rotV;
-if (frame>80) p.alpha = Math.max(0, p.alpha-0.018);
-ctx.save(); ctx.globalAlpha=p.alpha;
-ctx.translate(p.x+p.w/2, p.y+p.h/2); ctx.rotate(p.rot*Math.PI/180);
-ctx.fillStyle=p.color; ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);
-ctx.restore();
-});
-if (++frame < 140) requestAnimationFrame(draw);
-else ctx.clearRect(0,0,canvas.width,canvas.height);
-}
-requestAnimationFrame(draw);
+  const canvas = document.getElementById('confettiCanvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  const colors = ['#2d6a4f','#52b788','#86efac','#f59e0b','#fbbf24','#ffffff','#0a66c2'];
+  const pieces = Array.from({length:120}, () => ({
+    x: Math.random()*canvas.width, y: -Math.random()*canvas.height*0.5,
+    w: 6+Math.random()*8, h: 10+Math.random()*6,
+    color: colors[Math.floor(Math.random()*colors.length)],
+    rot: Math.random()*360, rotV: (Math.random()-0.5)*6,
+    vx: (Math.random()-0.5)*3, vy: 2+Math.random()*4, alpha: 1
+  }));
+  let frame = 0;
+  function draw() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    pieces.forEach(p => {
+      p.x+=p.vx; p.y+=p.vy; p.rot+=p.rotV;
+      if (frame>80) p.alpha = Math.max(0, p.alpha-0.018);
+      ctx.save(); ctx.globalAlpha=p.alpha;
+      ctx.translate(p.x+p.w/2, p.y+p.h/2); ctx.rotate(p.rot*Math.PI/180);
+      ctx.fillStyle=p.color; ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);
+      ctx.restore();
+    });
+    if (++frame < 140) requestAnimationFrame(draw);
+    else ctx.clearRect(0,0,canvas.width,canvas.height);
+  }
+  requestAnimationFrame(draw);
 }
 </script>
 </body>
