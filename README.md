@@ -62,7 +62,7 @@ All results are estimates for public education, not certified emissions accounti
 
 ## Tech
 
-One `index.html` file with plain HTML, CSS, and JavaScript. No framework, no build step, no account, and no tracking of your inputs. Open it anywhere, or fork it for your own region.
+One `index.html` file with plain HTML, CSS, and JavaScript. No framework, no build step, no account, and no tracking of your inputs (page visits are counted anonymously with GoatCounter). Open it anywhere, or fork it for your own region.
 
 ## Contributing
 
