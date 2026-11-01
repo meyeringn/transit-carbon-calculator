@@ -222,8 +222,8 @@ input[type=range]::-moz-range-thumb {
   font-size: 12px; color: #1b4332; font-weight: 500;
 }
 #mapPinNote { display: none; }
-footer { text-align: center; padding: 24px; font-size: 12px; color: #9ca3af; }
-footer a { color: #2d6a4f; text-decoration: none; }
+footer { text-align: center; padding: 24px; font-size: 12px; color: #4b5563; }
+footer a { color: #2d6a4f; text-decoration: underline; }
 footer a:hover { text-decoration: underline; }
 #confettiCanvas {
   position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -259,6 +259,11 @@ footer a:hover { text-decoration: underline; }
   font-size: 16px; font-weight: 700; color: rgba(255,255,255,0.7);
   background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
   border-radius: 100px; padding: 6px 20px; margin-bottom: 28px; margin-top: -20px;
+}
+
+/* Reduced motion: respect people who get dizzy or distracted by movement */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
 </style>
 </head>
@@ -452,7 +457,7 @@ footer a:hover { text-decoration: underline; }
     <p style="font-size:13px;color:#6b7280;margin-bottom:4px;">Keep riding. Watch the numbers grow.</p>
     <div class="slider-row">
       <span class="slider-label">Over <span id="yearDisplay">10</span> years</span>
-      <input type="range" id="yearSlider" min="1" max="40" value="10" oninput="updateLifetime(this.value)" />
+      <input type="range" id="yearSlider" aria-label="Years to project" min="1" max="40" value="10" oninput="updateLifetime(this.value)" />
     </div>
     <div class="lifetime-grid" id="lifetimeGrid">
       <div class="lt-card big">
